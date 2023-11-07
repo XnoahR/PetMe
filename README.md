@@ -1,2 +1,3 @@
-# PetMe
- Capstone Project
+# PetMe for CC Team
+
+Capstone Project PetMe!
