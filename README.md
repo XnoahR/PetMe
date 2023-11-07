@@ -1,2 +1,3 @@
 # PetMe
- Capstone Project
+
+Capstone Project PetMe!
