@@ -1,9 +1,9 @@
-// TensorFlow.js for Node,js
+// Test model with NodeJS for PetMe! Project
 const tf = require('@tensorflow/tfjs-node');
 
 const Jimp = require('jimp');
 
-// mapping of Fashion-MNIST labels
+// Mapping of pet labels
 const labels = [
   'T-shirt/top',
   'Trouser',
@@ -60,7 +60,7 @@ const runPrediction = function (model, imagepath) {
   });
 };
 
-// run
+// Load model and run predict
 const run = async function () {
   if (process.argv.length < 3) {
     console.log('please pass an image to process. ex:');
