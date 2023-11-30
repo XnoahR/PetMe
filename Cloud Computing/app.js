@@ -73,7 +73,6 @@ app.get("/get", async (req, res) => {
   
       if (file) {
         const filePath = file.name;
-        //respond change link to file
         res.status(200)
         .render("./index.ejs", { dataLink: `https://storage.googleapis.com/tomadoro/${filePath}` });
         
