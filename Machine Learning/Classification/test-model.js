@@ -5,16 +5,10 @@ const Jimp = require('jimp');
 
 // Mapping of pet labels
 const labels = [
-  'T-shirt/top',
-  'Trouser',
-  'Pullover',
-  'Dress',
-  'Coat',
-  'Sandal',
-  'Shirt',
-  'Sneaker',
-  'Bag',
-  'Ankle boot'
+  'cat',
+  'dog',
+  'rabbit',
+
 ];
 
 const imageWidth = 28;
