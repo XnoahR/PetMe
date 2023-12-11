@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:enterFadeDuration="500"
+    android:exitFadeDuration="500"
+    >
+    <item android:drawable="@drawable/ic_pet_filled" android:state_checked="true">
+    </item>
+    <item android:drawable="@drawable/ic_pet" android:state_checked="false">
+    </item>
+</selector>

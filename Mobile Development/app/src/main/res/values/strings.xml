@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">petme</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="pet_name">Kucing Anggora</string>
+    <string name="pet_type">Kucing</string>
+    <string name="distance">12 Km</string>
+    <string name="description">Lorem Ipsum is simply dummy text of the printing and typesetting Lorem Ipsum is simply dummy text of the printing and typesetting Lorem Ipsum is simply dummy text of the printing and typesetting industry...</string>
+    <string name="edit">Edit</string>
+    <string name="delete">delete</string>
+    <string name="title_hint">Pets Name</string>
+    <string name="breed_hint">Breed</string>
+    <string name="description_hint">Description</string>
+    <string name="add_new_pet">Add</string>
+    <string name="gallery">Gallery</string>
+    <string name="camera">Camera</string>
+    <string name="profile_tab">Profile</string>
+    <string name="name_placeholeder">Fardan Maula Azizi</string>
+    <string name="email_placeholder">fardan@gmail.com</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="favorite_pets_title">Favorite Pets</string>
+    <string name="edit_pet">Edit</string>
+    <string name="search_pet">Search Pet</string>
+    <string name="add_new_pet_title">Add New Pet</string>
+    <string name="edit_pet_title">Edit Pet</string>
+    <string name="edit_profile_title">Edit Profile</string>
+    <string name="name_hint">Nama</string>
+</resources>

@@ -1,0 +1,26 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.Petme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimaryVariant">#0F9D58</item>
+        <item name="colorOnPrimary">#000</item>
+        <item name="colorPrimary">@color/primary</item>
+        <item name="android:windowBackground">@color/whiteBackground</item>
+    </style>
+
+    <style name="Theme.Petme" parent="Base.Theme.Petme" />
+
+    <style name="primaryColor">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">#9188E3</item>
+    </style>
+
+    <style name="primaryColor.bold">
+        <item name="android:textColor">#9188E3</item>
+    </style>
+
+    <style name="tersierColor">
+        <item name="android:textColor">#7C6565</item>
+    </style>
+</resources>

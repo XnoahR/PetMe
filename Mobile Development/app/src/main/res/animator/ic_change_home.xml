@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:enterFadeDuration="@integer/material_motion_duration_long_2"
+    android:exitFadeDuration="@integer/material_motion_duration_long_2"
+    >
+    <item android:drawable="@drawable/ic_home_filled" android:state_checked="true">
+    </item>
+    <item android:drawable="@drawable/ic_home" android:state_checked="false">
+    </item>
+</selector>

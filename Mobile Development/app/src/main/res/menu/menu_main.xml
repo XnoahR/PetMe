@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/home"
+        android:enabled="true"
+        android:title="Home"
+        android:icon="@animator/ic_change_home"/>
+
+    <item android:id="@+id/pets"
+        android:enabled="true"
+        android:title="Pets"
+        android:icon="@animator/ic_change_pets"/>
+
+    <item android:id="@+id/blank"
+        android:enabled="false"
+        android:title=""/>
+
+        <item android:id="@+id/notification"
+            android:enabled="true"
+        android:title="Notif"
+        android:icon="@animator/ic_change_notifications"/>
+
+    <item android:id="@+id/account"
+        android:enabled="true"
+        android:title="Account"
+        android:icon="@animator/ic_change_account"/>
+
+</menu>
