@@ -1,12 +1,10 @@
-package com.bangkit.petme.ui
+package com.bangkit.petme.ui.fragment.petscollection
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.bangkit.petme.MainActivity
-import com.bangkit.petme.R
 import com.bangkit.petme.databinding.ActivityAddPetBinding
-import com.bangkit.petme.databinding.ActivityEditProfileBinding
 
 class AddPetActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddPetBinding
@@ -17,7 +15,9 @@ class AddPetActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.btnBack.setOnClickListener {
-            startActivity(Intent(this, MainActivity::class.java))
+            startActivity(Intent(this, MainActivity::class.java).apply {
+                putExtra("page", "PetCollection")
+            })
         }
     }
 }

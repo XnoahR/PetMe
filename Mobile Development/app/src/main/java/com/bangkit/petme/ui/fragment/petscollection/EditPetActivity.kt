@@ -1,10 +1,9 @@
-package com.bangkit.petme.ui
+package com.bangkit.petme.ui.fragment.petscollection
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.bangkit.petme.MainActivity
-import com.bangkit.petme.R
 import com.bangkit.petme.databinding.ActivityEditPetBinding
 import com.bumptech.glide.Glide
 
@@ -23,7 +22,9 @@ class EditPetActivity : AppCompatActivity() {
             .load(intent.getStringExtra(IMAGE)) // URL Gambar
             .into(binding.ivImagePet)
         binding.btnBack.setOnClickListener {
-            startActivity(Intent(this, MainActivity::class.java))
+            startActivity(Intent(this, MainActivity::class.java).apply {
+                putExtra("page", "PetCollection")
+            })
         }
     }
 

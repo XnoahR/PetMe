@@ -9,17 +9,16 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bangkit.petme.databinding.FragmentAccountBinding
+import com.bangkit.petme.databinding.FragmentProfileBinding
 import com.bangkit.petme.model.PetCollection
-import com.bangkit.petme.ui.fragment.petscollection.PetCollectionAdapter
-import com.bangkit.petme.ui.fragment.profile.ViewModelFactory
+import com.bangkit.petme.viewmodel.ProfileViewModel
+import com.bangkit.petme.viewmodel.ViewModelFactory
 
-class AccountFragment : Fragment() {
-    private var _binding: FragmentAccountBinding? = null
+class ProfileFragment : Fragment() {
+    private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onCreateView(
@@ -27,20 +26,20 @@ class AccountFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        _binding = FragmentAccountBinding.inflate(inflater, container, false)
+        _binding = FragmentProfileBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val accountViewModel = ViewModelProvider(requireActivity(), ViewModelFactory.getInstance(requireActivity().application)).get(
-            AccountViewModel::class.java)
+        val profileViewModel = ViewModelProvider(requireActivity(), ViewModelFactory.getInstance(requireActivity().application)).get(
+            ProfileViewModel::class.java)
 
 
-        binding.rvFavoritePets.layoutManager = GridLayoutManager(requireContext(), 2)
+        binding.rvFavoritePets.layoutManager = LinearLayoutManager(requireContext())
         binding.rvFavoritePets.setHasFixedSize(true)
 
-        accountViewModel.petsCollection.observe(requireActivity()){
+        profileViewModel.petsCollection.observe(requireActivity()){
             showRecyclerView(it)
         }
 

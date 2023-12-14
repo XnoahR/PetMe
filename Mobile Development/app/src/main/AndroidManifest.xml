@@ -18,10 +18,10 @@
             android:name=".ui.fragment.profile.EditProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.EditPetActivity"
+            android:name=".ui.fragment.petscollection.EditPetActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.AddPetActivity"
+            android:name=".ui.fragment.petscollection.AddPetActivity"
             android:exported="false" />
         <activity
             android:name=".ui.auth.getStartedActivity"

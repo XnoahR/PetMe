@@ -10,7 +10,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bangkit.petme.R
 import com.bangkit.petme.model.PetCollection
-import com.bangkit.petme.ui.EditPetActivity
 import com.bumptech.glide.Glide
 
 class PetCollectionAdapter(private val petCollection: List<PetCollection>) : RecyclerView.Adapter<PetCollectionAdapter.ListViewHolder>() {

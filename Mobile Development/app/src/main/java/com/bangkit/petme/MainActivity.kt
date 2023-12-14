@@ -4,8 +4,9 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import com.bangkit.petme.ui.AddPetActivity
-import com.bangkit.petme.ui.fragment.profile.AccountFragment
+import com.bangkit.petme.model.PetCollection
+import com.bangkit.petme.ui.fragment.petscollection.AddPetActivity
+import com.bangkit.petme.ui.fragment.profile.ProfileFragment
 import com.bangkit.petme.ui.fragment.HomeFragment
 import com.bangkit.petme.ui.fragment.NotificationFragment
 import com.bangkit.petme.ui.fragment.petscollection.PetsFragment
@@ -20,13 +21,23 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        loadFragment(HomeFragment())
 
         bottomNav = findViewById<BottomNavigationView>(R.id.bottomNavMenu)
         addButton = findViewById<FloatingActionButton>(R.id.addFab)
 
         bottomNav.background = null
-        bottomNav.selectedItemId = R.id.home
+
+        if(intent.getStringExtra("page") == "Profile"){
+            loadFragment(ProfileFragment())
+            bottomNav.selectedItemId = R.id.account
+        }else if(intent.getStringExtra("page") == "PetCollection"){
+            loadFragment(PetsFragment())
+            bottomNav.selectedItemId = R.id.pets
+        }else{
+            loadFragment(HomeFragment())
+            bottomNav.selectedItemId = R.id.home
+        }
+
 
         bottomNav.setOnItemSelectedListener {
             when (it.itemId) {
@@ -43,7 +54,7 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.account -> {
-                    loadFragment(AccountFragment())
+                    loadFragment(ProfileFragment())
                     true
                 }
 

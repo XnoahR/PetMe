@@ -17,7 +17,9 @@ class EditProfileActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.btnBack.setOnClickListener {
-            startActivity(Intent(this, MainActivity::class.java))
+            startActivity(Intent(this, MainActivity::class.java).apply {
+                putExtra("page", "Profile")
+            })
         }
     }
 }

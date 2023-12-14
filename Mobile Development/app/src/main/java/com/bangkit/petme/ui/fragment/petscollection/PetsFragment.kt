@@ -4,15 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.bangkit.petme.R
 import com.bangkit.petme.databinding.FragmentPetsBinding
 import com.bangkit.petme.model.PetCollection
+import com.bangkit.petme.viewmodel.PetsCollectionViewModel
+import com.bangkit.petme.viewmodel.ViewModelFactory
 
 class PetsFragment : Fragment() {
     private var _binding: FragmentPetsBinding? = null
@@ -33,7 +31,8 @@ class PetsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val petCollectionViewModel = ViewModelProvider(requireActivity(), ViewModelFactory.getInstance(requireActivity().application)).get(PetsCollectionViewModel::class.java)
+        val petCollectionViewModel = ViewModelProvider(requireActivity(), ViewModelFactory.getInstance(requireActivity().application)).get(
+            PetsCollectionViewModel::class.java)
 
         binding.rvPetsCollection.layoutManager = LinearLayoutManager(requireContext())
         binding.rvPetsCollection.setHasFixedSize(true)

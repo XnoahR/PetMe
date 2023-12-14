@@ -1,6 +1,5 @@
 package com.bangkit.petme.ui.fragment.profile
 
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +8,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bangkit.petme.R
 import com.bangkit.petme.model.PetCollection
-import com.bangkit.petme.ui.EditPetActivity
 import com.bumptech.glide.Glide
 
 class FavoritePetsAdapter (private val petFavorite: List<PetCollection>) : RecyclerView.Adapter<FavoritePetsAdapter.ListViewHolder>() {
@@ -17,9 +15,9 @@ class FavoritePetsAdapter (private val petFavorite: List<PetCollection>) : Recyc
 
     class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val ivPhoto: ImageView = itemView.findViewById(R.id.iv_photo)
-        val tvName: TextView = itemView.findViewById(R.id.tv_pet_name)
-        val tvPetType: TextView = itemView.findViewById(R.id.tv_pet_type)
-//        val tvDescription: TextView = itemView.findViewById(R.id.tv_description)
+        val tvName: TextView = itemView.findViewById(R.id.tv_name)
+        val tvPetType: TextView = itemView.findViewById(R.id.tv_type)
+        val tvDescription: TextView = itemView.findViewById(R.id.tv_description)
         val tvRange: TextView = itemView.findViewById(R.id.tv_range)
     }
 
@@ -27,7 +25,7 @@ class FavoritePetsAdapter (private val petFavorite: List<PetCollection>) : Recyc
         parent: ViewGroup,
         viewType: Int
     ): FavoritePetsAdapter.ListViewHolder {
-        val view : View = LayoutInflater.from(parent.context).inflate(R.layout.item_row_favorite_pets, parent, false)
+        val view : View = LayoutInflater.from(parent.context).inflate(R.layout.item_row_pet, parent, false)
         return ListViewHolder(view)
     }
 
@@ -38,7 +36,7 @@ class FavoritePetsAdapter (private val petFavorite: List<PetCollection>) : Recyc
             .load(image)
             .into(holder.ivPhoto)
         holder.tvPetType.text = type
-//        holder.tvDescription.text = description
+        holder.tvDescription.text = description
         holder.tvRange.text = "$range KM"
     }
 
