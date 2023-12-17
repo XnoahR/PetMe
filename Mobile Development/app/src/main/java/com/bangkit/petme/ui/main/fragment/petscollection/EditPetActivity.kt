@@ -10,9 +10,10 @@ import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.ViewModelProvider
 import com.bangkit.petme.databinding.ActivityEditPetBinding
-import com.bangkit.petme.utils.getImageUri
+import com.bangkit.petme.utils.*
 import com.bangkit.petme.ml.CatDog
 import com.bangkit.petme.ui.main.MainActivity
+import com.bangkit.petme.utils.Utils.getImageUri
 import com.bangkit.petme.viewmodel.PetsCollectionViewModel
 import com.bangkit.petme.viewmodel.ViewModelFactory
 import com.bumptech.glide.Glide

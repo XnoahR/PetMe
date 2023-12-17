@@ -108,4 +108,8 @@ class MainViewModel(application: Application) : ViewModel() {
         _isEmpty.postValue(false)
     }
 
+    fun getToken(): String{
+        return preference.getToken()!!
+    }
+
 }

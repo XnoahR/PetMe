@@ -1,6 +1,7 @@
 package com.bangkit.petme.api.Retrofit
 
 import com.bangkit.petme.api.Response.AddFavoriteResponse
+import com.bangkit.petme.api.Response.AddPostResponse
 import com.bangkit.petme.api.Response.DeleteFavoriteResponse
 import com.bangkit.petme.api.Response.DeletePostResponse
 import com.bangkit.petme.api.Response.DetailPetResponse
@@ -14,14 +15,19 @@ import com.bangkit.petme.api.Response.RegisterResponse
 import com.bangkit.petme.api.Response.UserProfileResponse
 import com.bangkit.petme.api.Response.UserProfileResponseItem
 import com.bangkit.petme.ui.detail.DetailPetActivity
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.Header
+import retrofit2.http.Multipart
 import retrofit2.http.PATCH
 import retrofit2.http.POST
+import retrofit2.http.Part
 import retrofit2.http.Path
 
 interface ApiService {
@@ -84,4 +90,12 @@ interface ApiService {
         @Header("Authorization") token: String,
         @Path("id") id: Int,
     ): DeletePostResponse
+
+    @Multipart
+    @POST("post/create")
+    fun uploadImage(
+        @Header("Authorization") token: String,
+        @Part file: MultipartBody.Part,
+        @Part("description") description: RequestBody,
+        ): Call<AddPostResponse>
 }

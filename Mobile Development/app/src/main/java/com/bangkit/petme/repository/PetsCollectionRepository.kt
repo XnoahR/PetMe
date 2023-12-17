@@ -28,4 +28,5 @@ class PetsCollectionRepository(application: Context) {
     suspend fun deletePost(token: String, id: Int): DeletePostResponse{
         return ApiConfig.getApiService().deletePost("Bearer $token",id)
     }
+
 }

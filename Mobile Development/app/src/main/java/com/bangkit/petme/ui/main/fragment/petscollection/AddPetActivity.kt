@@ -1,24 +1,62 @@
 package com.bangkit.petme.ui.main.fragment.petscollection
 
+import android.content.Context
+import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.Matrix
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
+import android.view.View
+import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.exifinterface.media.ExifInterface
+import androidx.lifecycle.ViewModelProvider
+import com.bangkit.petme.R
+import com.bangkit.petme.api.Response.AddPostResponse
+import com.bangkit.petme.api.Retrofit.ApiConfig
 import com.bangkit.petme.databinding.ActivityAddPetBinding
-import com.bangkit.petme.utils.getImageUri
+import com.bangkit.petme.utils.Utils
 import com.bangkit.petme.ml.CatDog
+import com.bangkit.petme.ui.main.MainActivity
+import com.bangkit.petme.utils.Utils.getImageUri
+import com.bangkit.petme.utils.Utils.reduceFileImage
+import com.bangkit.petme.viewmodel.MainViewModel
+import com.bangkit.petme.viewmodel.ViewModelFactory
+import okhttp3.FormBody
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import org.tensorflow.lite.DataType
 import org.tensorflow.lite.support.image.ImageProcessor
 import org.tensorflow.lite.support.image.TensorImage
 import org.tensorflow.lite.support.image.ops.ResizeOp
 import org.tensorflow.lite.support.tensorbuffer.TensorBuffer
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.FileOutputStream
+import java.io.InputStream
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
+
+private const val FILENAME_FORMAT = "yyyyMMdd_HHmmss"
+private const val MAXIMAL_SIZE = 1000000
+private val timeStamp: String = SimpleDateFormat(FILENAME_FORMAT, Locale.US).format(Date())
 
 class AddPetActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddPetBinding
     private var currentImageUri: Uri? = null
+    private lateinit var id_animal: String
+    private lateinit var mainViewModel: MainViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddPetBinding.inflate(layoutInflater)
@@ -37,10 +75,13 @@ class AddPetActivity : AppCompatActivity() {
         }
 
         binding.btnAdd.setOnClickListener {
-            predict()
+            uploadImage()
         }
 
-
+        mainViewModel =
+            ViewModelProvider(this, ViewModelFactory.getInstance(this.application)).get(
+                MainViewModel::class.java
+            )
     }
 
     private fun predict() {
@@ -75,7 +116,9 @@ class AddPetActivity : AppCompatActivity() {
             }
         }
 
+        id_animal = label[maxIdx]
         binding.tvTitle.setText(label[maxIdx])
+
 
         model.close()
     }
@@ -99,6 +142,7 @@ class AddPetActivity : AppCompatActivity() {
         currentImageUri?.let {
             Log.d("Image URI", "showImage: $it")
             binding.ivPhoto.setImageURI(it)
+            predict()
         }
     }
 
@@ -114,4 +158,125 @@ class AddPetActivity : AppCompatActivity() {
             showImage()
         }
     }
+
+    fun uriToFile(imageUri: Uri, context: Context): File {
+        val myFile = createCustomTempFile(context)
+        val inputStream = context.contentResolver.openInputStream(imageUri) as InputStream
+        val outputStream = FileOutputStream(myFile)
+        val buffer = ByteArray(1024)
+        var length: Int
+        while (inputStream.read(buffer).also { length = it } > 0) outputStream.write(
+            buffer,
+            0,
+            length
+        )
+        outputStream.close()
+        inputStream.close()
+        return myFile
+    }
+
+    private fun uploadImage() {
+        currentImageUri?.let { uri ->
+            val imageFile = uriToFile(uri, this).reduceFileImage()
+            Log.d("Image File", "showImage: ${imageFile.path}")
+            val formBuilder = FormBody.Builder()
+                .add("title", binding.etTitle.text.toString())
+                .add("breed", binding.etBreeds.text.toString())
+                .add("description", binding.etDescription.text.toString())
+                .add("latitude", mainViewModel.getLatitude().toString())
+                .add("longitude", mainViewModel.getLongitude().toString())
+                .add("id_animal", id_animal.toString())
+
+//            showLoading(true)
+            val requestBody = formBuilder.build()
+            val requestImageFile = imageFile.asRequestBody("image/jpeg".toMediaType())
+            val multipartBody = MultipartBody.Part.createFormData(
+                "file",
+                imageFile.name,
+                requestImageFile
+            )
+
+            val client = ApiConfig.getApiService()
+                .uploadImage("Bearer ${mainViewModel.getToken()}", multipartBody, requestBody)
+            client.enqueue(object : Callback<AddPostResponse> {
+                override fun onResponse(
+                    call: Call<AddPostResponse>,
+                    response: Response<AddPostResponse>
+                ) {
+//                        showLoading(false)
+                    if (response.isSuccessful) {
+                        val responseBody = response.body()
+                        if (responseBody != null) {
+//                                showToast(responseBody.message)
+                            if (responseBody.message == "Story created successfully") {
+                                startActivity(
+                                    Intent(
+                                        this@AddPetActivity,
+                                        MainActivity::class.java
+                                    )
+                                )
+                            }
+
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<AddPostResponse>, t: Throwable) {
+                    Log.d("gagal", "gagal")
+                }
+            })
+        }
+    }
+
+    fun createCustomTempFile(context: Context): File {
+        val filesDir = context.externalCacheDir
+        return File.createTempFile(timeStamp, ".jpg", filesDir)
+    }
+
+//    fun showLoading(isLoading: Boolean) {
+//        binding.progressIndicator.visibility = if (isLoading) View.VISIBLE else View.GONE
+//    }
+//
+//    private fun showToast(message: String) {
+//        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+//    }
+
+    fun File.reduceFileImage(): File {
+        val file = this
+        val bitmap = BitmapFactory.decodeFile(file.path).getRotatedBitmap(file)
+        var compressQuality = 100
+        var streamLength: Int
+        do {
+            val bmpStream = ByteArrayOutputStream()
+            bitmap?.compress(Bitmap.CompressFormat.JPEG, compressQuality, bmpStream)
+            val bmpPicByteArray = bmpStream.toByteArray()
+            streamLength = bmpPicByteArray.size
+            compressQuality -= 5
+        } while (streamLength > MAXIMAL_SIZE)
+        bitmap?.compress(Bitmap.CompressFormat.JPEG, compressQuality, FileOutputStream(file))
+        return file
+    }
+
+    fun Bitmap.getRotatedBitmap(file: File): Bitmap? {
+        val orientation = ExifInterface(file).getAttributeInt(
+            ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED
+        )
+        return when (orientation) {
+            ExifInterface.ORIENTATION_ROTATE_90 -> rotateImage(this, 90F)
+            ExifInterface.ORIENTATION_ROTATE_180 -> rotateImage(this, 180F)
+            ExifInterface.ORIENTATION_ROTATE_270 -> rotateImage(this, 270F)
+            ExifInterface.ORIENTATION_NORMAL -> this
+            else -> this
+        }
+    }
+
+    fun rotateImage(source: Bitmap, angle: Float): Bitmap? {
+        val matrix = Matrix()
+        matrix.postRotate(angle)
+        return Bitmap.createBitmap(
+            source, 0, 0, source.width, source.height, matrix, true
+        )
+    }
 }
+
+

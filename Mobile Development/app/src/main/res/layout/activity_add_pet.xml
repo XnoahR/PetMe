@@ -84,7 +84,7 @@
         app:layout_constraintTop_toBottomOf="@+id/btn_add_image">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/add_ed_title"
+            android:id="@+id/et_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxLines="1" />
@@ -102,7 +102,7 @@
         tools:layout_editor_absoluteX="16dp">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/add_ed_breeds"
+            android:id="@+id/et_breeds"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxLines="1" />
@@ -120,7 +120,7 @@
         tools:layout_editor_absoluteX="16dp">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/add_ed_description"
+            android:id="@+id/et_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="top"
