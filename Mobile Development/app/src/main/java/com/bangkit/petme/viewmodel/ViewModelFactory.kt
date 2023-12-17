@@ -3,6 +3,8 @@ package com.bangkit.petme.viewmodel
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.bangkit.petme.api.Response.DetailPetResponse
+import com.bangkit.petme.ui.detail.DetailPetViewModel
 
 class ViewModelFactory private constructor(private val mApplication: Application) : ViewModelProvider.NewInstanceFactory() {
     companion object {
@@ -31,6 +33,8 @@ class ViewModelFactory private constructor(private val mApplication: Application
             return MainViewModel(mApplication) as T
         }else if (modelClass.isAssignableFrom(RegisterViewModel::class.java)){
             return RegisterViewModel(mApplication) as T
+        }else if (modelClass.isAssignableFrom(DetailPetViewModel::class.java)){
+            return DetailPetViewModel(mApplication) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
     }

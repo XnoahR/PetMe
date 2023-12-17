@@ -11,4 +11,5 @@
     <color name="editButtonBackground">#8DDFCB</color>
     <color name="deleteButtonBackground">#FF7B7B</color>
     <color name="inputBackground">#DCDCDC</color>
+    <color name="nonactiveButton">#D7D2FF</color>
 </resources>

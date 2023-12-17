@@ -147,5 +147,27 @@
         app:layout_constraintVertical_bias="0.0"
         tools:listitem="@layout/item_row_pet" />
 
+    <TextView
+        android:id="@+id/tv_no_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="No Item"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="42dp"
+        android:layout_height="54dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/rv_favorite_pets"
+        app:layout_constraintEnd_toEndOf="@+id/rv_favorite_pets"
+        app:layout_constraintStart_toStartOf="@+id/rv_favorite_pets"
+        app:layout_constraintTop_toBottomOf="@+id/horizontal_line"
+        tools:visibility="visible" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
 

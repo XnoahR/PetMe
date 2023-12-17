@@ -10,13 +10,11 @@ import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.bangkit.petme.R
-import com.bangkit.petme.model.PetsCollection
 import com.bangkit.petme.ui.main.fragment.petscollection.AddPetActivity
 import com.bangkit.petme.ui.main.fragment.profile.ProfileFragment
-import com.bangkit.petme.ui.main.fragment.HomeFragment
+import com.bangkit.petme.ui.main.fragment.home.HomeFragment
 import com.bangkit.petme.ui.main.fragment.NotificationFragment
 import com.bangkit.petme.ui.main.fragment.petscollection.PetsFragment
-import com.bangkit.petme.viewmodel.LoginViewModel
 import com.bangkit.petme.viewmodel.MainViewModel
 import com.bangkit.petme.viewmodel.PetsCollectionViewModel
 import com.bangkit.petme.viewmodel.ViewModelFactory
@@ -37,6 +35,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+
         mainViewModel =
             ViewModelProvider(this, ViewModelFactory.getInstance(this.application)).get(
                 MainViewModel::class.java
@@ -53,46 +52,44 @@ class MainActivity : AppCompatActivity() {
 
         bottomNav.background = null
 
-
         bottomNav.setOnItemSelectedListener {
-
             when (it.itemId) {
                 R.id.home -> {
                     loadFragment(HomeFragment())
-                    petCollectionViewModel.resetList()
                     true
                 }
                 R.id.pets -> {
                     loadFragment(PetsFragment())
-                    petCollectionViewModel.resetList()
                     true
                 }
                 R.id.notification -> {
                     loadFragment(NotificationFragment())
-                    petCollectionViewModel.resetList()
                     true
                 }
                 R.id.account -> {
                     loadFragment(ProfileFragment())
-                    petCollectionViewModel.resetList()
                     true
                 }
-
                 else -> false
             }
-
         }
         addButton.setOnClickListener {
             intent = Intent(this, AddPetActivity::class.java)
             startActivity(intent)
         }
-
+        if(intent.getStringExtra("page") != null){
+            loadFragment(PetsFragment())
+            bottomNav.selectedItemId = R.id.pets
+            return
+//            Log.d("ini cokkot", intent.getStringExtra("page")!!)
+        }
         getLocation()
+        loadFragment(HomeFragment())
 
         // SHOW BADGES NOTIFICATIONS
         var badge = bottomNav.getOrCreateBadge(R.id.notification)
         badge.isVisible = true
-        badge.number = 99
+//        badge.number = 99
     }
 
     private  fun loadFragment(fragment: Fragment){
@@ -121,7 +118,6 @@ class MainActivity : AppCompatActivity() {
             if(it != null){
                 mainViewModel.setLatitude(it.latitude.toFloat())
                 mainViewModel.setLongitude(it.longitude.toFloat())
-                Log.d("lokasinya lur", "Latitude ${it.latitude}, ${it.longitude}")
             }
         }
     }

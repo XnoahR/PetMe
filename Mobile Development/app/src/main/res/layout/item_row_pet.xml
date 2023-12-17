@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
+    card_view:cardElevation="0dp"
     android:layout_marginBottom="16dp"
     card_view:cardCornerRadius="10dp">
 
@@ -68,6 +69,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
+            android:elevation="0dp"
             card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintTop_toTopOf="@+id/tv_type"
             tools:text="@string/distance" />

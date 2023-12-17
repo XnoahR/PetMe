@@ -1,19 +1,13 @@
 package com.bangkit.petme.viewmodel
 
 import android.app.Application
-import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.bangkit.petme.api.Response.PetCollectionResponseItem
-import com.bangkit.petme.model.PetCollection
-import com.bangkit.petme.model.PetsCollection.petsCollection
 import com.bangkit.petme.preferences.Preferences
 import com.bangkit.petme.repository.PetsCollectionRepository
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class PetsCollectionViewModel(application: Application) : ViewModel() {
@@ -25,27 +19,67 @@ class PetsCollectionViewModel(application: Application) : ViewModel() {
     private val _petsCollectionDisplay = MutableLiveData<List<PetCollectionResponseItem>>()
     val petsCollectionDisplay: LiveData<List<PetCollectionResponseItem>> = _petsCollectionDisplay
 
-    private val _searchBar = MutableLiveData<String>()
-    val searchBar: LiveData<String> = _searchBar
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean> = _isLoading
 
+    private val _isEmpty = MutableLiveData<Boolean>()
+    val isEmpty: LiveData<Boolean> = _isEmpty
 
     init {
-        _searchBar.value =""
+        notEmpty()
+    }
 
+    fun getPetCollection(){
         viewModelScope.launch {
+            startLoading()
             petsCollection = petsCollectionRepository.getPetsCollection(preference.getToken()!!)
             _petsCollectionDisplay.value = petsCollectionRepository.getPetsCollection(preference.getToken()!!)
+            if(_petsCollectionDisplay.value.isNullOrEmpty()){
+                empty()
+            }else{
+                notEmpty()
+            }
+
+            stopLoading()
         }
     }
 
     fun searchItem(value: String){
         _petsCollectionDisplay.value = petsCollection.filter { it.title.contains(value, ignoreCase = true) }
+        if(_petsCollectionDisplay.value.isNullOrEmpty()){
+            empty()
+        }else{
+            notEmpty()
+        }
     }
 
     fun resetList(){
-        _petsCollectionDisplay.value = petsCollection
+        if(_petsCollectionDisplay.value != null){
+            _petsCollectionDisplay.value = petsCollection
+        }
     }
 
+    private fun startLoading() {
+        _isLoading.postValue(true)
+    }
+
+    fun stopLoading() {
+        _isLoading.postValue(false)
+    }
+
+    private fun empty() {
+        _isEmpty.postValue(true)
+    }
+
+    private fun notEmpty() {
+        _isEmpty.postValue(false)
+    }
+
+    fun deletePost(id: Int){
+        viewModelScope.launch {
+            petsCollectionRepository.deletePost(preference.getToken()!!, id)
+        }
+    }
 }
 
 

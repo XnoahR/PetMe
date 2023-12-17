@@ -1,4 +1,4 @@
-package com.bangkit.petme.ui.main.fragment.profile
+package com.bangkit. petme.ui.main.fragment.profile
 
 import android.content.Intent
 import android.view.LayoutInflater
@@ -9,10 +9,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bangkit.petme.R
-import com.bangkit.petme.UtilsRange
+import com.bangkit.petme.utils.UtilsRange
 import com.bangkit.petme.api.Response.FavoritePetsResponseItem
 import com.bangkit.petme.model.PetCollection
 import com.bangkit.petme.preferences.Preferences
+import com.bangkit.petme.ui.detail.DetailPetActivity
 import com.bangkit.petme.ui.main.fragment.petscollection.EditPetActivity
 import com.bumptech.glide.Glide
 
@@ -21,8 +22,8 @@ class FavoritePetsAdapter (private val petFavorite: List<FavoritePetsResponseIte
 
     class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val ivPhoto: ImageView = itemView.findViewById(R.id.iv_photo)
-        val tvName: TextView = itemView.findViewById(R.id.tv_pet_name)
-        val tvPetType: TextView = itemView.findViewById(R.id.tv_pet_type)
+        val tvName: TextView = itemView.findViewById(R.id.tv_name)
+        val tvPetType: TextView = itemView.findViewById(R.id.tv_type)
         val tvDescription: TextView = itemView.findViewById(R.id.tv_description)
         val tvRange: TextView = itemView.findViewById(R.id.tv_range)
     }
@@ -36,30 +37,26 @@ class FavoritePetsAdapter (private val petFavorite: List<FavoritePetsResponseIte
     }
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-//        val preference: Preferences = Preferences(holder.itemView.context.applicationContext)
-//
-//        holder.tvName.text = petFavorite[position].post.
-////        if(petCollection[position].idAnimal == 1){
-////            holder.tvPetType.text = "Kucing"
-////        }else{
-////            holder.tvPetType.text = "Anjing"
-////        }
-//        Glide.with(holder.itemView.context)
-//            .load(petCollection[position].postPicture) // URL Gambar
-//            .into(holder.ivPhoto)
-//        holder.tvDescription.text = petCollection[position].description
-//        val range = UtilsRange.calculateHaversineDistance(preference.getLatitude().toString().toDouble(), preference.getLongitude().toString().toDouble(), petCollection[position].latitude.toString().toDouble(), petCollection[position].longitude.toString().toDouble())
-//        holder.tvRange.text = "${range.toInt()} KM"
-//        holder.btnEdit.setOnClickListener {
-//            holder.itemView.context.startActivity(
-//                Intent(holder.itemView.context, EditPetActivity::class.java).apply {
-//                    putExtra(EditPetActivity.NAME, petCollection[position].title)
-//                    putExtra(EditPetActivity.TYPE, type)
-//                    putExtra(EditPetActivity.DESCRIPTION, petCollection[position].description)
-//                    putExtra(EditPetActivity.IMAGE, petCollection[position].postPicture)
-//                }
-//            )
-//        }
+        val preference: Preferences = Preferences(holder.itemView.context.applicationContext)
+
+        holder.tvName.text = petFavorite[position].post?.title
+        if(petFavorite[position].post?.idAnimal == 1){
+            holder.tvPetType.text = "Kucing"
+        }else{
+            holder.tvPetType.text = "Anjing"
+        }
+        Glide.with(holder.itemView.context)
+            .load(petFavorite[position].post?.postPicture) // URL Gambar
+            .into(holder.ivPhoto)
+        holder.tvDescription.text = petFavorite[position].post?.description
+        val range = UtilsRange.calculateHaversineDistance(preference.getLatitude().toString().toDouble(), preference.getLongitude().toString().toDouble(), petFavorite?.get(position)?.post?.latitude.toString().toDouble(), petFavorite?.get(position)?.post?.longitude.toString().toDouble())
+        holder.tvRange.text = "${range.toInt()} KM"
+        holder.itemView.setOnClickListener {
+            holder.itemView.context.startActivity(Intent(holder.itemView.context, DetailPetActivity::class.java).apply {
+                putExtra(DetailPetActivity.ID, petFavorite[position].idPost)
+            })
+        }
     }
 
-    override fun getItemCount(): Int = petFavorite.size}
+    override fun getItemCount(): Int = petFavorite.size
+}

@@ -52,4 +52,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ed_search"
         tools:listitem="@layout/item_row_pet_collection" />
+
+    <TextView
+        android:id="@+id/tv_no_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="No Item"
+        app:layout_constraintEnd_toEndOf="@+id/ed_search"
+        app:layout_constraintStart_toStartOf="@+id/ed_search"
+        app:layout_constraintTop_toBottomOf="@+id/ed_search" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="42dp"
+        android:layout_height="54dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/rv_pets_collection"
+        app:layout_constraintEnd_toEndOf="@+id/rv_pets_collection"
+        app:layout_constraintStart_toStartOf="@+id/rv_pets_collection"
+        app:layout_constraintTop_toTopOf="@+id/rv_pets_collection"
+        tools:visibility="visible" />
 </androidx.constraintlayout.widget.ConstraintLayout>

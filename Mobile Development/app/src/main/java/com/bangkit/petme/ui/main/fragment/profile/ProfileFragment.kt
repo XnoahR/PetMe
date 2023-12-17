@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bangkit.petme.api.Response.FavoritePetsResponseItem
 import com.bangkit.petme.api.Response.PetCollectionResponseItem
 import com.bangkit.petme.databinding.FragmentProfileBinding
 import com.bangkit.petme.model.PetCollection
@@ -45,9 +46,11 @@ class ProfileFragment : Fragment() {
         binding.rvFavoritePets.layoutManager = LinearLayoutManager(requireContext())
         binding.rvFavoritePets.setHasFixedSize(true)
 
-//        profileViewModel.petsCollection.observe(requireActivity()){
-//            showRecyclerView(it)
-//        }
+        profileViewModel.petsFavorite.observe(requireActivity()){
+            showRecyclerView(it)
+        }
+
+        profileViewModel.getFavoritePet()
 
         var id = ""
         var name = ""
@@ -57,7 +60,21 @@ class ProfileFragment : Fragment() {
         profileViewModel.userProfile.observe(requireActivity()){
             binding.tvName.text = it[0]?.name ?: ""
         }
+        profileViewModel.isLoading.observe(requireActivity()) {
+            if (it == true) {
+                binding.progressBar.visibility = View.VISIBLE
+            } else {
+                binding.progressBar.visibility = View.INVISIBLE
+            }
+        }
 
+        profileViewModel.isEmpty.observe(requireActivity()){
+            if(it == true){
+                binding.tvNoItem.visibility = View.VISIBLE
+            }else{
+                binding.tvNoItem.visibility = View.INVISIBLE
+            }
+        }
         profileViewModel.userProfile.observe(requireActivity()){
                         name = it[0]?.name.toString()
             email = it[0]?.email.toString()
@@ -78,7 +95,7 @@ class ProfileFragment : Fragment() {
 
     }
 
-    private fun showRecyclerView(listPetCollection: List<PetCollectionResponseItem>){
-//        binding.rvFavoritePets.adapter = FavoritePetsAdapter(listPetCollection)
+    private fun showRecyclerView(listPetFavorite: List<FavoritePetsResponseItem>){
+        binding.rvFavoritePets.adapter = FavoritePetsAdapter(listPetFavorite)
     }
 }

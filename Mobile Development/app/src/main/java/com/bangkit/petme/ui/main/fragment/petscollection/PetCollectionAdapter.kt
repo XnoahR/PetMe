@@ -9,9 +9,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bangkit.petme.R
-import com.bangkit.petme.UtilsRange
+import com.bangkit.petme.utils.UtilsRange
 import com.bangkit.petme.api.Response.PetCollectionResponseItem
 import com.bangkit.petme.preferences.Preferences
+import com.bangkit.petme.repository.PetsCollectionRepository
 import com.bumptech.glide.Glide
 
 class PetCollectionAdapter(private val petCollection: List<PetCollectionResponseItem>) : RecyclerView.Adapter<PetCollectionAdapter.ListViewHolder>() {
@@ -23,8 +24,7 @@ class PetCollectionAdapter(private val petCollection: List<PetCollectionResponse
         val tvPetType: TextView = itemView.findViewById(R.id.tv_pet_type)
         val tvDescription: TextView = itemView.findViewById(R.id.tv_description)
         val tvRange: TextView = itemView.findViewById(R.id.tv_range)
-        val btnEdit: Button = itemView.findViewById(R.id.btn_edit)
-        val btnUpdate: Button = itemView.findViewById(R.id.btn_update)
+        val btnDetail: Button = itemView.findViewById(R.id.btn_detail)
     }
 
     override fun onCreateViewHolder(
@@ -37,6 +37,8 @@ class PetCollectionAdapter(private val petCollection: List<PetCollectionResponse
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         val preference: Preferences = Preferences(holder.itemView.context.applicationContext)
+        val petsCollectionRepository: PetsCollectionRepository = PetsCollectionRepository(holder.itemView.context.applicationContext)
+
 
         holder.tvName.text = petCollection[position].title
         if(petCollection[position].idAnimal == 1){
@@ -50,9 +52,10 @@ class PetCollectionAdapter(private val petCollection: List<PetCollectionResponse
         holder.tvDescription.text = petCollection[position].description
         val range = UtilsRange.calculateHaversineDistance(preference.getLatitude().toString().toDouble(), preference.getLongitude().toString().toDouble(), petCollection[position].latitude.toString().toDouble(), petCollection[position].longitude.toString().toDouble())
         holder.tvRange.text = "${range.toInt()} KM"
-        holder.btnEdit.setOnClickListener {
+        holder.btnDetail.setOnClickListener {
             holder.itemView.context.startActivity(
                 Intent(holder.itemView.context, EditPetActivity::class.java).apply {
+                    putExtra(EditPetActivity.ID, petCollection[position].id)
                     putExtra(EditPetActivity.NAME, petCollection[position].title)
                     putExtra(EditPetActivity.TYPE, type)
                     putExtra(EditPetActivity.DESCRIPTION, petCollection[position].description)

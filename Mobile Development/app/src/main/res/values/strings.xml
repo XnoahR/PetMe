@@ -8,7 +8,7 @@
     <string name="edit">Edit</string>
     <string name="delete">delete</string>
     <string name="title_hint">Pets Name</string>
-    <string name="breed_hint">Breed</string>
+    <string name="breed_hint">Breed (Optional)</string>
     <string name="description_hint">Description</string>
     <string name="add_new_pet">Add</string>
     <string name="gallery">Gallery</string>

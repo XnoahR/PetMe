@@ -23,4 +23,5 @@
     <style name="tersierColor">
         <item name="android:textColor">#7C6565</item>
     </style>
+
 </resources>

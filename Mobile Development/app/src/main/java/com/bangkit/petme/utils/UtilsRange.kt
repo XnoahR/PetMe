@@ -1,4 +1,4 @@
-package com.bangkit.petme
+package com.bangkit.petme.utils
 import kotlin.math.*
 
 object UtilsRange {

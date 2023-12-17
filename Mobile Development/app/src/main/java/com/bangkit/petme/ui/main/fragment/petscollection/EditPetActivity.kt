@@ -1,43 +1,40 @@
 package com.bangkit.petme.ui.main.fragment.petscollection
 
-import android.content.ContentValues
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.content.FileProvider
-import com.bangkit.petme.BuildConfig
-import com.bangkit.petme.ui.main.MainActivity
+import androidx.lifecycle.ViewModelProvider
 import com.bangkit.petme.databinding.ActivityEditPetBinding
-import com.bangkit.petme.getImageUri
+import com.bangkit.petme.utils.getImageUri
 import com.bangkit.petme.ml.CatDog
+import com.bangkit.petme.ui.main.MainActivity
+import com.bangkit.petme.viewmodel.PetsCollectionViewModel
+import com.bangkit.petme.viewmodel.ViewModelFactory
 import com.bumptech.glide.Glide
 import org.tensorflow.lite.DataType
 import org.tensorflow.lite.support.image.ImageProcessor
 import org.tensorflow.lite.support.image.TensorImage
 import org.tensorflow.lite.support.image.ops.ResizeOp
 import org.tensorflow.lite.support.tensorbuffer.TensorBuffer
-import java.io.File
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 
 
 class EditPetActivity : AppCompatActivity() {
     private lateinit var binding: ActivityEditPetBinding
     private var currentImageUri: Uri? = null
+    private lateinit var petCollectionViewModel: PetsCollectionViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityEditPetBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        petCollectionViewModel = ViewModelProvider(this, ViewModelFactory.getInstance(this.application)).get(
+            PetsCollectionViewModel::class.java)
 
         binding.edTitle.setText(intent.getStringExtra(NAME))
         binding.edDescription.setText(intent.getStringExtra(DESCRIPTION))
@@ -59,6 +56,14 @@ class EditPetActivity : AppCompatActivity() {
 
         binding.btnEdit.setOnClickListener {
             predict()
+        }
+
+
+        binding.btnDelete.setOnClickListener {
+            petCollectionViewModel.deletePost(intent.getIntExtra(ID, 0))
+            startActivity(Intent(this, MainActivity::class.java).apply {
+                putExtra("page", "PetCollection")
+            })
         }
     }
     private fun predict() {
@@ -134,6 +139,7 @@ class EditPetActivity : AppCompatActivity() {
     }
 
     companion object {
+        val ID: String = "id"
         val NAME: String = "name"
         val TYPE: String = "type"
         val IMAGE: String = "image"

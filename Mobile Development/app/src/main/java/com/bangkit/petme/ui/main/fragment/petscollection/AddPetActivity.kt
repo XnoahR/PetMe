@@ -1,7 +1,5 @@
 package com.bangkit.petme.ui.main.fragment.petscollection
 
-import android.content.Intent
-import android.graphics.Bitmap
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -9,12 +7,10 @@ import android.provider.MediaStore
 import android.util.Log
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
-import com.bangkit.petme.ui.main.MainActivity
 import com.bangkit.petme.databinding.ActivityAddPetBinding
-import com.bangkit.petme.getImageUri
+import com.bangkit.petme.utils.getImageUri
 import com.bangkit.petme.ml.CatDog
 import org.tensorflow.lite.DataType
-import org.tensorflow.lite.support.common.ops.NormalizeOp
 import org.tensorflow.lite.support.image.ImageProcessor
 import org.tensorflow.lite.support.image.TensorImage
 import org.tensorflow.lite.support.image.ops.ResizeOp

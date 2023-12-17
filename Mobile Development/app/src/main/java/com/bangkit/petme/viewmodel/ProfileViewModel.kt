@@ -4,19 +4,13 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.bangkit.petme.api.Response.EditProfileResponse
 import com.bangkit.petme.api.Response.FavoritePetsResponseItem
-import com.bangkit.petme.api.Response.PetCollectionResponseItem
-import com.bangkit.petme.api.Response.UserProfileResponse
 import com.bangkit.petme.api.Response.UserProfileResponseItem
-import com.bangkit.petme.model.PetCollection
-import com.bangkit.petme.model.PetsCollection
 import com.bangkit.petme.preferences.Preferences
 import com.bangkit.petme.repository.PetsCollectionRepository
 import com.bangkit.petme.repository.ProfileRepository
-import com.bumptech.glide.Glide.init
 import kotlinx.coroutines.launch
 
 
@@ -34,11 +28,11 @@ class ProfileViewModel(application: Application) : ViewModel() {
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
+    private val _isEmpty = MutableLiveData<Boolean>()
+    val isEmpty: LiveData<Boolean> = _isEmpty
+
     init {
-        viewModelScope.launch {
-            _petsFavorite.value = petCollectionRepository.getFavoritePets(preference.getToken()!!)
-            _userProfile.value = profileRepository.getUserProfile(preference.getToken()!!)
-        }
+        notEmpty()
     }
 
     suspend fun editProfile(id: Int, name: String, email: String, phone: String, password: String): EditProfileResponse {
@@ -46,6 +40,20 @@ class ProfileViewModel(application: Application) : ViewModel() {
         val response = profileRepository.editProfile(preference.getToken()!!, id, name, email, phone, password)
         stopLoading()
         return response
+    }
+
+    fun getFavoritePet(){
+        viewModelScope.launch {
+            startLoading()
+            _petsFavorite.value = petCollectionRepository.getFavoritePets(preference.getToken()!!)
+            _userProfile.value = profileRepository.getUserProfile(preference.getToken()!!)
+            if(_petsFavorite.value.isNullOrEmpty()){
+                empty()
+            }else{
+                notEmpty()
+            }
+            stopLoading()
+        }
     }
 
     fun deleteToken(){
@@ -57,5 +65,13 @@ class ProfileViewModel(application: Application) : ViewModel() {
 
     private fun stopLoading() {
         _isLoading.postValue(false)
+    }
+
+    private fun empty() {
+        _isEmpty.postValue(true)
+    }
+
+    private fun notEmpty() {
+        _isEmpty.postValue(false)
     }
 }

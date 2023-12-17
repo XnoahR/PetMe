@@ -1,6 +1,8 @@
 package com.bangkit.petme.ui.main.fragment.petscollection
 
+import android.opengl.Visibility
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +18,7 @@ import com.bangkit.petme.viewmodel.ViewModelFactory
 
 class PetsFragment : Fragment() {
     private lateinit var binding: FragmentPetsBinding
-
+    private lateinit var petCollectionViewModel: PetsCollectionViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -32,21 +34,37 @@ class PetsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val petCollectionViewModel = ViewModelProvider(requireActivity(), ViewModelFactory.getInstance(requireActivity().application)).get(
+        petCollectionViewModel = ViewModelProvider(requireActivity(), ViewModelFactory.getInstance(requireActivity().application)).get(
             PetsCollectionViewModel::class.java)
 
         binding.rvPetsCollection.layoutManager = LinearLayoutManager(requireContext())
         binding.rvPetsCollection.setHasFixedSize(true)
-        petCollectionViewModel.searchBar.observe(requireActivity()){
-            binding.edSearch.setText(it)
-        }
+
 
         binding.edSearch.addTextChangedListener{
             petCollectionViewModel.searchItem(binding.edSearch.text.toString())
-//            petCollectionViewModel.seachBarText(binding.edSearch.text.toString())
         }
+
+        petCollectionViewModel.getPetCollection()
+
         petCollectionViewModel.petsCollectionDisplay.observe(requireActivity()){
             showRecyclerView(it)
+        }
+
+        petCollectionViewModel.isEmpty.observe(requireActivity()){
+            if(it == true){
+                binding.tvNoItem.visibility = View.VISIBLE
+            }else{
+                binding.tvNoItem.visibility = View.INVISIBLE
+            }
+        }
+
+        petCollectionViewModel.isLoading.observe(requireActivity()) {
+            if (it == true) {
+                binding.progressBar.visibility = View.VISIBLE
+            } else {
+                binding.progressBar.visibility = View.INVISIBLE
+            }
         }
     }
 
@@ -54,4 +72,8 @@ class PetsFragment : Fragment() {
         binding.rvPetsCollection.adapter = PetCollectionAdapter(listPetCollection)
     }
 
+    override fun onDestroy() {
+        petCollectionViewModel.resetList()
+        super.onDestroy()
+    }
 }

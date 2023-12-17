@@ -22,6 +22,9 @@ data class Post(
 	@field:SerializedName("id_user")
 	val idUser: Int? = null,
 
+	@field:SerializedName("title")
+	val title: String? = null,
+
 	@field:SerializedName("id_animal")
 	val idAnimal: Int? = null,
 
