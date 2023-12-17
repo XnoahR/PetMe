@@ -1,0 +1,30 @@
+{
+  "author": "Particle",
+  "name": "spark",
+  "version": "1.1.0",
+  "main": "dist/spark.min.js",
+  "homepage": "http://particle.io",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/spark/sparkjs"
+  },
+  "contributors": [
+    "edgarsilva <edgar.osc@gmail.com>",
+    "solojavier"
+  ],
+  "description": "Official Particle cloud API library",
+  "keywords": [
+    "spark",
+    "sparkjs",
+    "spark-core",
+    "core"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

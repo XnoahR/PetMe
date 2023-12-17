@@ -1,0 +1,27 @@
+
+<h1>Data From JSON</h1>
+ID: <%= id %>
+
+    <% if (data < 1) { %>
+        <p>Lee Chawnima lee</p>
+        <% } else { %>
+            <ul>
+                <% data.forEach(e=> { %>
+                    <li>
+                        <%= e.id %>
+                    </li>
+                    <li>
+                        <%= e.email %>
+                    </li>
+                    <li>
+                        <%= e.phone %>
+                    </li>
+                    <li>
+                        <%= e.email %>
+                    </li>
+                    <br>
+                    <% }) %>
+                        <% } %>
+            </ul>
+
+Data from Mysql
