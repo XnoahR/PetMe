@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">petme</string>
+    <string name="app_name">PetMe</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="pet_name">Kucing Anggora</string>
     <string name="pet_type">Kucing</string>
@@ -14,7 +14,7 @@
     <string name="gallery">Gallery</string>
     <string name="camera">Camera</string>
     <string name="profile_tab">Profile</string>
-    <string name="name_placeholeder">Fardan Maula Azizi</string>
+    <string name="name_placeholeder">Loading</string>
     <string name="email_placeholder">fardan@gmail.com</string>
     <string name="edit_profile">Edit Profile</string>
     <string name="favorite_pets_title">Favorite Pets</string>
@@ -24,4 +24,8 @@
     <string name="edit_pet_title">Edit Pet</string>
     <string name="edit_profile_title">Edit Profile</string>
     <string name="name_hint">Nama</string>
+    <string name="login">Login</string>
+    <string name="Dont_have_account">Don\'t have an account yet? Register</string>
+    <string name="register">Register</string>
+    <string name="have_account">Do you have an account? login</string>
 </resources>

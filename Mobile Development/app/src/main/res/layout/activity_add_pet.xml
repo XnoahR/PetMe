@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragment.petscollection.AddPetActivity"
+    tools:context=".ui.main.fragment.petscollection.AddPetActivity"
     android:padding="32dp">
 
     <ImageButton
@@ -29,9 +29,9 @@
         app:layout_constraintTop_toBottomOf="@+id/btn_back" />
 
     <ImageView
-        android:id="@+id/gambar_hewan"
+        android:id="@+id/iv_photo"
         android:layout_width="200dp"
-        android:layout_height="wrap_content"
+        android:layout_height="200dp"
         android:layout_marginTop="8dp"
         android:adjustViewBounds="true"
         android:src="@drawable/image_placeholder"
@@ -47,7 +47,7 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gambar_hewan">
+        app:layout_constraintTop_toBottomOf="@+id/iv_photo">
 
         <Button
             android:id="@+id/btn_gallery"

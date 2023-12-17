@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragment.petscollection.AddPetActivity"
+    tools:context=".ui.main.fragment.petscollection.AddPetActivity"
     android:padding="32dp">
 
     <ImageButton
@@ -77,6 +77,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/ed_phone_number"
+            android:inputType="number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxLines="1" />
@@ -88,13 +89,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:hint="Password"
+        android:hint="Current Password"
         app:boxBackgroundColor="@color/inputBackground"
         app:layout_constraintTop_toBottomOf="@+id/textInputPhoneNumber"
         tools:layout_editor_absoluteX="16dp">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/ed_password"
+            android:id="@+id/ed_current_password"
+            android:inputType="textPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxLines="1" />
@@ -106,13 +108,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:hint="Password Confirmation"
+        android:hint="New Password"
         app:boxBackgroundColor="@color/inputBackground"
         app:layout_constraintTop_toBottomOf="@+id/textInputPassword"
         tools:layout_editor_absoluteX="16dp">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/ed_password_confirmation"
+            android:id="@+id/ed_new_password"
+            android:inputType="textPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxLines="1" />

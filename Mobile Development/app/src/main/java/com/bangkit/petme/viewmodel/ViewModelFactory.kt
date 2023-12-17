@@ -25,6 +25,12 @@ class ViewModelFactory private constructor(private val mApplication: Application
             return ProfileViewModel(mApplication) as T
         }else if (modelClass.isAssignableFrom(PetsCollectionViewModel::class.java)){
             return PetsCollectionViewModel(mApplication) as T
+        }else if (modelClass.isAssignableFrom(LoginViewModel::class.java)){
+            return LoginViewModel(mApplication) as T
+        }else if (modelClass.isAssignableFrom(MainViewModel::class.java)){
+            return MainViewModel(mApplication) as T
+        }else if (modelClass.isAssignableFrom(RegisterViewModel::class.java)){
+            return RegisterViewModel(mApplication) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
     }

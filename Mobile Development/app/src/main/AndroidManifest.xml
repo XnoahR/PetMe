@@ -2,7 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -15,22 +20,28 @@
         android:theme="@style/Theme.Petme"
         tools:targetApi="31">
         <activity
-            android:name=".ui.fragment.profile.EditProfileActivity"
+            android:name=".ui.DetailPetActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.fragment.petscollection.EditPetActivity"
+            android:name=".ui.register.RegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.fragment.petscollection.AddPetActivity"
+            android:name=".ui.login.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.auth.getStartedActivity"
+            android:name=".ui.main.MainActivity"
             android:exported="false" />
         <activity
-            android:name=".Welcome"
+            android:name=".ui.main.fragment.profile.EditProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.main.fragment.petscollection.EditPetActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.fragment.petscollection.AddPetActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.welcome.WelcomeActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -38,6 +49,30 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider> <!-- Trigger Google Play services to install the backported photo picker module. -->
+        <!-- suppress AndroidDomInspection -->
+        <service
+            android:name="com.google.android.gms.metadata.ModuleDependencies"
+            android:enabled="false"
+            android:exported="false"
+            tools:ignore="MissingClass">
+            <intent-filter>
+                <action android:name="com.google.android.gms.metadata.MODULE_DEPENDENCIES" />
+            </intent-filter>
+
+            <meta-data
+                android:name="photopicker_activity:0:required"
+                android:value="" />
+        </service>
 
         <meta-data
             android:name="preloaded_fonts"
