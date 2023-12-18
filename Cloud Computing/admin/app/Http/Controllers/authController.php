@@ -4,10 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class authController extends Controller
 {
     function index() {
+        if (!Session::has('zoomed_out')) {
+            // Set the session variable to indicate that the user has zoomed out
+            Session::put('zoomed_out', true);
+        }
+
         return view('login');
     }
 

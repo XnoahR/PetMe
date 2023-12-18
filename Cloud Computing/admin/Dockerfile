@@ -18,8 +18,8 @@ RUN apt-get update && apt-get install -y \
 RUN docker-php-ext-install pdo_mysql
 
 # Install Node.js and npm
-RUN curl -sL https://deb.nodesource.com/setup_18.x | bash - \
-    && apt-get install -y nodejs
+# RUN curl -sL https://deb.nodesource.com/setup_18.x | bash - \
+#    && apt-get install -y nodejs
 
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
@@ -27,14 +27,16 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # Copy the entire application to the WORKDIR
 COPY . .
 
+# COPY public/build/assets /app/public/build/assets
+
 # Install PHP dependencies
 RUN composer install
 
 # Install JavaScript dependencies
-RUN npm install
+# RUN npm install
 
 # Build the Vite project
-RUN npm run build
+# RUN npm run build
 
 # Generate application key
 RUN if [ -f ".env.example" ]; then cp .env.example .env; fi
@@ -47,5 +49,4 @@ RUN sed -i 's/DB_DATABASE=laravel/DB_DATABASE=petme-db/' .env
 RUN sed -i 's/DB_USERNAME=root/DB_USERNAME=root/' .env
 RUN sed -i 's/DB_PASSWORD=/DB_PASSWORD=123/' .env
 
-
-CMD npm run dev && php artisan serve --host=0.0.0.0 --port=8080
+CMD php artisan serve --host=0.0.0.0 --port=8080

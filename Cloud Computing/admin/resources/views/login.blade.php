@@ -5,7 +5,7 @@
     @include('layout.head')
 </head>
 
-<body class="h-screen flex justify-center items-center bg-pastel-background bg-cover bg-no-repeat bg-center shadow-xl">
+<body class="h-screen flex justify-center items-center bg-cover bg-no-repeat bg-center shadow-xl" style="background-image: url('https://storage.googleapis.com/petmebucket/assets/background-8fa77e20.png')">
     <div class="bg-gray-100 mx-auto flex items-center justify-center h-5/6 w-8/12">
         <!-- Left Side: Image -->
         <div class="md:block md:w-1/2 h-full">

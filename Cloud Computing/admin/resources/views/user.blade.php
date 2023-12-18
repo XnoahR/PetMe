@@ -33,16 +33,8 @@
             class="w-1/4 border border-gray-300 rounded-md p-2.5 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
             placeholder="Search...">
     </div>
-    <div class="flex w-full bg-white mt-5 px-10 h-95 rounded-3xl">
-        <div class="container mx-auto">
-            <div class="flex justify-end mb-5 pt-5">
-                <button
-                    class="bg-purple-custom text-pastel-custom p-3 font-semibold rounded-xl hover:bg-pastel-custom hover:text-purple-custom me-7">Import
-                    from Excel</button>
-                <button
-                    class="bg-pastel-custom text-purple-custom p-3 font-semibold rounded-xl hover:bg-purple-custom hover:text-pastel-custom px-7">Export
-                    to PDF</button>
-            </div>
+    <div class="flex w-full bg-white mt-5 px-10 h-auto rounded-3xl">
+        <div class="container mx-auto py-10">
             <table class="table-auto border-collapse w-full mb-3">
                 <thead>
                     <tr class="capitalize text-base leading-normal border-b-4 text-center">

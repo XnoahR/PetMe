@@ -30,15 +30,9 @@
             class="w-1/4 border border-gray-300 rounded-md p-2.5 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
             placeholder="Search...">
     </div>
-    <div class="flex w-full bg-white mt-5 px-10 h-95 rounded-3xl">
-
-        <div class="container mx-auto">
-            <div class="flex justify-end mb-5 pt-5">
-                <a href="{{ route('pet.index') }}" class="px-4 py-2 mx-2 bg-pastel-custom text-purple-custom rounded-xl hover:bg-purple-custom hover:text-pastel-custom font-semibold text-xl">All</a>
-                <a href="{{ route('pet.index', ['type' => 'cat']) }}" class="px-4 py-2 mx-2 bg-pastel-custom text-purple-custom rounded-xl hover:bg-purple-custom hover:text-pastel-custom font-semibold text-xl">Cats</a>
-                <a href="{{ route('pet.index', ['type' => 'dog']) }}" class="px-4 py-2 mx-2 bg-pastel-custom text-purple-custom rounded-xl hover:bg-purple-custom hover:text-pastel-custom font-semibold text-xl">Dogs</a>
-            </div>
-            <table class="table-auto border-collapse w-full mb-3">
+    <div class="flex w-full bg-white mt-5 px-10 h-auto rounded-3xl">
+        <div class="container mx-auto py-10">
+            <table class="table-auto border-collapse w-full mb-3 mt-5">
                 <thead>
                     <tr class="capitalize text-base leading-normal border-b-4 text-center">
                         <th class="py-3 px-1 text-left">#</th>

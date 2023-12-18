@@ -38,17 +38,17 @@
                         <i class="text-sm text-gray-500">*Breed of the pet</i>
                     </div>
                     <div class="flex flex-col w-3/4 mt-1.5">
-                        <label for="breed" class="text-lg font-semibold">Description</label>
-                        <input type="text" name="breed" id="breed"
+                        <label for="description" class="text-lg font-semibold">Description</label>
+                        <textarea name="description" id="description" rows="4"
                             class="border border-gray-300 rounded-md p-2.5 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
-                            placeholder="Breed" value="{{ old('breed', $post->description) }}" disabled>
+                            placeholder="Description" disabled>{{ old('description', $post->description) }}</textarea>
                     </div>
                     <div class="flex flex-col w-3/4 mt-10 text-center">
                         <label for="status" class="text-xl font-semibold">Status</label>
                         @if($post->status == 1)
                         <span class="text-red-500 font-bold text-2xl">Not approved</span>
                         @elseif($post->status == 2)
-                        <span class="text-green-500">Approved</span>
+                        <span class="text-green-500 font-bold text-2xl">Approved</span>
                         @endif
                     </div>
                 </div>

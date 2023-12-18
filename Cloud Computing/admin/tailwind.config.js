@@ -23,9 +23,6 @@ export default {
             margin: {
                 "23r": "23rem",
             },
-            backgroundImage: {
-                "pastel-background": "url('/public/assets/img/background.png')",
-            },
         },
     },
     plugins: [],
