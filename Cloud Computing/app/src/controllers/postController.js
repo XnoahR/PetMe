@@ -8,8 +8,6 @@ import path from "path";
 import md5 from "md5";
 import fs from "fs";
 
-
-
 const app = Express();
 app.use(fileUpload());
 app.use(Express.json());
@@ -137,17 +135,64 @@ const editPost = (req, res) => {
 
 const updatePost = (req, res) => {
   const id_user = req.user.id;
-  const { title } = req.body;
+  const { title,breed,description,longitude,latitude,id_animal } = req.body; //suarku masuk ga?
   const id = req.params.id;
   post.update(
     {
-      title: req.body.title,
-      date: new Date(),
+      title,
+      breed,
+      description,
+      longitude,
+      latitude,
+      id_animal,
+      upload_date: new Date(),
     },
     { where: { id: id, id_user: id_user } }
   );
   res.json({ message: `Post updated. ID: ${id}` });
 };
+
+const updatePostPicture = async (req, res) => {
+  try {
+    const { title, id_animal, description, breed, latitude, longitude } = req.body;
+    const id_user = req.user.id;
+    const id = req.params.id;
+    const file = req.files;
+    const fileName = file.file.name;
+    const ext = path.extname(fileName);
+    const newFileName = md5(new Date().getTime()) + ext;
+    const rszFileName = `https://storage.googleapis.com/petmebucket/user_data/rsz${newFileName}`;
+    const folder = `./public/images/${rszFileName}`;
+    const fileSize = file.file.size;
+    const allowedFileTypes = /jpeg|jpg|png/;
+    if (!allowedFileTypes.test(path.extname(fileName).toLowerCase())) {
+      res.status(400).json({ message: "Invalid file type" });
+    }
+    if (fileSize > 12 * 1024 * 1024) {
+      res.status(400).json({ message: "File size too large" });
+    }
+
+    // Adjust the file handling function based on your actual file handling approach
+    await uploadFileToBucket(file.file, newFileName);
+    const result  = await post.update({
+      title,
+      breed,
+      description,
+      longitude,
+      latitude,
+      id_animal,
+      upload_date: new Date(),
+      post_picture: rszFileName,
+    },
+      { where: { id: id, id_user: id_user } }
+    );
+    res.status(200).json({ message: "Post updated", data: result });
+    }
+    catch (err) {
+      res.status(500).json({ message: "Internal Server Error" });
+    }
+  };
+
 
 const deletePost = async (req, res) => {
   const id = req.params.id;
@@ -168,6 +213,7 @@ const deletePost = async (req, res) => {
 const addFavourite = (req, res) => {
   const id = req.params.id;
   const id_user = req.user.id;
+
   favourite
     .create({
       id_user: id_user,
@@ -197,6 +243,7 @@ export {
   createPost,
   findPost,
   editPost,
+  updatePostPicture,
   updatePost,
   deletePost,
   addFavourite,

@@ -91,18 +91,22 @@ const login = (req, res) => {
 };
 
 const logout = (req, res) => {
+  if(!req.cookies.jwt){
+    res.status(401).json({
+      status: "Error",
+      message: "You're not logged in",
+    });
+  }
 
   res.cookie("jwt", "", {
     httpOnly: true,
     expires: new Date(0),
   });
-
   res.status(200).json({
     status: "Success",
     message: "Logged out",
   });
 };
-
 
 // const checkJwt = (req,res) => {
 //   const jwt = req.cookies.jwt;

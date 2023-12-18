@@ -15,10 +15,9 @@ const sequelize = new Sequelize(
         ? (...mgs) => {
             console.log(mgs);
           }
-        : false
-        // timezone: "+07:00",
+        : false,
   }
-  );
+);
 
 // const createTable = () => {
 //     const q = `CREATE TABLE IF NOT EXISTS bookTest (

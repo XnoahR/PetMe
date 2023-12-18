@@ -3,6 +3,7 @@ import "dotenv/config";
 import cors from "cors";
 
 import fileUpload from "express-fileupload";
+
 import userRoutes from "./routes/userRoute.js";
 import postRoutes from "./routes/postRoute.js";
 import authRoutes from "./routes/authRoute.js";
@@ -11,7 +12,6 @@ import notificatttionRoute from "./routes/notificationRoute.js";
 
 const app = express();
 const port = process.env.PORT || 3000;
-
 
 app.use(express.json());
 app.use(fileUpload());
