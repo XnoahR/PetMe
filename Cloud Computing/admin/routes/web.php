@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\dashboardController;
 use App\Http\Controllers\userController;
 use App\Http\Controllers\petController;
+use App\Http\Controllers\notifController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,5 +30,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/pet{id}', [petController::class, 'showDataById'])->name('pet.show');
     Route::patch('/pet{id}', [petController::class, 'update'])->name('pet.update');
     Route::delete('/pet{id}', [petController::class, 'destroy'])->name('pet.destroy');
+    Route::resource('/notification', notifController::class);
 });
 

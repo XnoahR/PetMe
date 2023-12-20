@@ -15,7 +15,7 @@
         </div>
         <div class="w-1/2 ms-2.5">
             <div class="text-pastel-custom bg-purple-custom py-10 px-10 w-full rounded-xl flex items-center">
-                <i class="fa-solid fa-bug text-8xl"></i>
+                <img src="{{ asset('assets/img/approval.svg') }}" alt="" width="115" class="">
                 <div class="flex flex-col ms-5">
                     <h1 class="text-3xl font-semibold mb-2">Aproval Pet</h1>
                 <h1 class="text-7xl font-semibold">{{ $jumlahPet }}</h1>

@@ -17,7 +17,7 @@ class petController extends Controller
             ->join('animal', 'post.id_animal', '=', 'animal.id')
             ->select('post.id', 'post.title', 'post.upload_date', 'post.status', 'post.breed', 'post.post_picture', 'user.name', 'animal.type')
             ->orderBy('post.upload_date', 'desc')
-            // ->where('post.status', '!=', '2') // 2 = Accepted
+            ->where('post.status', '!=', '2') // 2 = Accepted
             ->paginate(10);
 
         return view('pet', ['posts' => $post]);

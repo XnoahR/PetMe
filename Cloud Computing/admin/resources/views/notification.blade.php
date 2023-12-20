@@ -3,7 +3,7 @@
 <!-- Content Area -->
 <div class="flex-1 h-screen p-10 pt-20">
     <div class="flex justify-between">
-    <h1 class="text-pastel-custom text-5xl font-medium w-1/2">Daftar User</h1>
+    <h1 class="text-pastel-custom text-5xl font-medium w-1/2">List Notification</h1>
     @if (session('success'))
     <div id="successMessage" class="bg-green-200 p-3 rounded-md shadow-sm mb-5 w-1/4">
         <div class="flex">
@@ -26,10 +26,10 @@
     @endif
     </div>
     <div class="flex justify-between mt-10">
-        <a href="{{ route('user.create') }}"
+        <a href="{{ route('notification.create') }}"
             class="font-bold bg-pastel-custom text-purple-custom rounded-xl p-2.5 px-4 hover:text-black"><i
-            class="fas fa-plus mr-2"></i> Add
-            User</a>
+                class="fas fa-plus mr-2"></i> Add
+            Notification</a>
         <input type="text" id="liveSearchInput"
             class="w-1/4 border border-gray-300 rounded-md p-2.5 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
             placeholder="Search...">
@@ -39,46 +39,38 @@
             <table class="table-auto border-collapse w-full mb-3">
                 <thead>
                     <tr class="capitalize text-base leading-normal border-b-4 text-center">
-                        <th class="py-3 px-1 text-left">#</th>
-                        <th class="py-3 px-1 text-left">Nama</th>
-                        <th class="py-3 px-6 text-left">Username</th>
-                        <th class="py-3 px-6">Email</th>
-                        <th class="py-3 px-6">Role</th>
+                        <th class="py-3 px-6 text-left">#</th>
+                        <th class="py-3 px-6 text-left">Name Notification</th>
+                        <th class="py-3 px-6 text-left">Description Notification</th>
+                        <th class="py-3 px-6">Date</th>
                         <th class="py-3 px-6">Aksi</th>
                     </tr>
                 </thead>
                 <tbody class="text-gray-600 text-base font-medium">
-                    @forelse ($users as $index => $user)
+                    @forelse ($notification as $index => $notif)
                     <tr class="border-b-4 text-center border-gray-200 hover:bg-gray-100">
-                        <td class="py-1.5 px-1 whitespace-nowrap text-left">
-                            <span class="font-normal">{{ $index + $users->firstItem() }}</span>
+                        <td class="py-1.5 px-6 whitespace-nowrap text-left">
+                            <span class="font-normal">{{ $index + $notification->firstItem() }}</span>
                         </td>
-                        <td class="py-1.5 px-1 whitespace-nowrap text-left">
-                            <span class="font-medium">{{ $user->name }}</span>
+                        <td class="py-1.5 px-6 whitespace-nowrap text-left">
+                            <span class="font-medium">{{ $notif->title }}</span>
                         </td>
                         <td class="py-1.5 px-6 text-left">
-                            <span>{{ $user->username }}</span>
-                        </td>
-                        <td class="py-1.5 px-6">
-                            <span>{{ $user->email }}</span>
+                            <span>{{ Str::limit($notif->description, 40) }}</span>
                         </td>
                         <td class="py-1.5 px-6">
                             <span class="bg-green-200 text-green-600 py-1 px-3 rounded-full text-base">
-                                @if ($user->role == 1)
-                                User
-                                @else
-                                {{ $user->role }}
-                                @endif
+                                <span>{{ \Carbon\Carbon::parse($notif->date)->format(' d-m-Y, h:i:s A') }}</span>
                             </span>
                         </td>
                         <td class="py-1.5 px-6">
                             <div class="flex item-center justify-center">
-                                <a href="{{ route('user.edit', $user->id) }}" class="border border-blue-500 text-blue-500 px-3.5 py-0.5 rounded-md hover:bg-blue-500 hover:text-white"><i
+                                <a href="{{ route('notification.edit', $notif->id) }}" class="border border-blue-500 text-blue-500 px-3.5 py-0.5 rounded-md hover:bg-blue-500 hover:text-white"><i
                                 class="fas fa-edit"></i> Edit</a>
-                                <form id="deleteForm" method="POST" action="{{ route('user.destroy', $user->id) }}">
+                                <form id="deleteForm" method="POST" action="{{ route('notification.destroy', $notif->id) }}">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="button" onclick="showModal({{ $user->id }})" class="border border-red-500 text-red-500 px-3.5 py-0.5 rounded-md ml-1 hover:bg-red-500 hover:text-white">
+                                    <button type="button" onclick="showModal({{ $notif->id }})" class="border border-red-500 text-red-500 px-3.5 py-0.5 rounded-md ml-1 hover:bg-red-500 hover:text-white">
                                         <i class="fas fa-trash"></i> Delete
                                     </button>
                                 </form>
@@ -88,13 +80,13 @@
                     @empty
                     <tr>
                         <td colspan="5" class="py-3 px-6 text-center border-4 border-red-500 text-red-500">
-                            <span class="font-bold text-xl">Tidak ada data</span>
+                            <span class="font-bold text-xl">No data available</span>
                         </td>
                     </tr>
                     @endforelse
                 </tbody>
             </table>
-            {{ $users->links() }}
+            {{ $notification->links() }}
         </div>
     </div>
 </div>
@@ -129,7 +121,7 @@
         modal.classList.remove('hidden');
 
         const deleteForm = document.getElementById('deleteForm');
-        deleteForm.action = "{{ route('user.destroy', '') }}" + '/' + id;
+        deleteForm.action = "{{ route('notification.destroy', '') }}" + '/' + id;
     }
 
     function hideModal() {
@@ -142,39 +134,39 @@
     const tables = document.querySelectorAll("table");
 
     liveSearchInput.addEventListener("keyup", function (e) {
-    const searchString = e.target.value.toLowerCase();
+        const searchString = e.target.value.toLowerCase();
 
-    tables.forEach((table) => {
-        const tableRows = table.querySelectorAll("tbody tr");
+        tables.forEach((table) => {
+            const tableRows = table.querySelectorAll("tbody tr");
 
-        tableRows.forEach((row) => {
-            const nama = row
-                .querySelector("td:nth-child(1)")
-                .textContent.toLowerCase();
-            const username = row
-                .querySelector("td:nth-child(2)")
-                .textContent.toLowerCase();
-            const email = row
-                .querySelector("td:nth-child(3)")
-                .textContent.toLowerCase();
+            tableRows.forEach((row) => {
+                const title = row
+                    .querySelector("td:nth-child(2)")
+                    .textContent.toLowerCase();
+                const description = row
+                    .querySelector("td:nth-child(3)")
+                    .textContent.toLowerCase();
+                const date = row
+                    .querySelector("td:nth-child(4) span")
+                    .textContent.toLowerCase();
 
-            const tds = row.querySelectorAll("td");
-            if (
-                nama.includes(searchString) ||
-                username.includes(searchString) ||
-                email.includes(searchString)
-            ) {
-                tds.forEach((td) => {
-                    td.style.display = "";
-                });
-            } else {
-                tds.forEach((td) => {
-                    td.style.display = "none";
-                });
-            }
+                const tds = row.querySelectorAll("td");
+                if (
+                    title.includes(searchString) ||
+                    description.includes(searchString) ||
+                    date.includes(searchString)
+                ) {
+                    tds.forEach((td) => {
+                        td.style.display = "";
+                    });
+                } else {
+                    tds.forEach((td) => {
+                        td.style.display = "none";
+                    });
+                }
+            });
         });
     });
-});
 
     // Notification Success
     setTimeout(function() {

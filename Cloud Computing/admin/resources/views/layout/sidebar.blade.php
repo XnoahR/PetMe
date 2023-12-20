@@ -18,8 +18,12 @@
                                 class="fas fa-users"></i> Daftar User</a>
                     </li>
                     <li class="mb-4">
-                        <a href="{{ route('pet.index') }}" class="p-2.5 text-purple-custom hover:bg-pastel-custom hover:rounded-xl"><i
-                                class="fa-solid fa-bug"></i> Approval Pet</a>
+                        <a href="{{ route('pet.index') }}" class="p-2.5 text-purple-custom hover:bg-pastel-custom hover:rounded-xl">
+                            <i class="fa-solid fa-paw"></i> Approval Pet</a>
+                    </li>
+                    <li class="mb-4">
+                        <a href="{{ route('notification.index') }}" class="p-2.5 text-purple-custom hover:bg-pastel-custom hover:rounded-xl"><i
+                                class="fa-solid fa-bell"></i> Notification</a>
                     </li>
                 </ul>
             </nav>

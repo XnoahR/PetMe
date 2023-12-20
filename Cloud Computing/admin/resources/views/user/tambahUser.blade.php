@@ -5,8 +5,8 @@
     <h1 class="text-pastel-custom text-5xl font-medium">Tambah User</h1>
     <div class="flex justify-between mt-10">
         <a href="/user"><button
-                class="font-bold bg-pastel-custom text-purple-custom rounded-xl p-2.5 px-4 hover:text-black">Back to
-                Daftar User</button></a>
+                class="font-bold bg-pastel-custom text-purple-custom rounded-xl p-2.5 px-4 hover:text-black"><i class="fas fa-arrow-left mr-2"></i>Back to
+                List User</button></a>
     </div>
     <div class="flex w-full bg-white mt-5 pt-10 px-10 h-fit rounded-3xl">
         <div class="container mx-80 mt-7 mb-7">
@@ -61,7 +61,7 @@
                 </div>
                 <div class="flex justify-end mt-5">
                     <button type="submit"
-                        class="bg-purple-custom text-pastel-custom p-3 font-semibold rounded-xl hover:bg-pastel-custom hover:text-purple-custom px-7">Tambah
+                        class="bg-purple-custom text-pastel-custom p-3 font-semibold rounded-xl hover:bg-pastel-custom hover:text-purple-custom px-7">Add
                         User</button>
                 </div>
             </form>
