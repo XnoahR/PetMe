@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/card_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    card_view:cardElevation="0dp"
+    android:layout_marginBottom="16dp"
+    card_view:cardCornerRadius="10dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_photo"
+            android:layout_width="130dp"
+            android:layout_height="110dp"
+            android:scaleType="centerCrop"
+            card_view:layout_constraintBottom_toBottomOf="parent"
+            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintTop_toTopOf="parent"
+            tools:src="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            style="@style/tersierColor"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            card_view:layout_constraintEnd_toEndOf="parent"
+            card_view:layout_constraintStart_toEndOf="@+id/iv_photo"
+            card_view:layout_constraintTop_toTopOf="@+id/iv_photo"
+            tools:text="@string/pet_name" />
+
+        <TextView
+            style="@style/tersierColor"
+            android:id="@+id/tv_type"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_toEndOf="@id/iv_photo"
+            card_view:layout_constraintTop_toBottomOf="@+id/tv_name"
+            card_view:layout_constraintStart_toEndOf="@+id/iv_photo"
+            tools:text="@string/pet_type" />
+
+        <ImageView
+            android:id="@+id/maps_icon"
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            android:layout_marginEnd="4dp"
+            android:adjustViewBounds="true"
+            android:src="@drawable/ic_location"
+            card_view:layout_constraintBottom_toBottomOf="@+id/tv_type"
+            card_view:layout_constraintEnd_toStartOf="@+id/tv_range"
+            card_view:layout_constraintTop_toTopOf="@+id/tv_type" />
+
+        <TextView
+            style="@style/tersierColor"
+            android:id="@+id/tv_range"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:elevation="0dp"
+            card_view:layout_constraintEnd_toEndOf="parent"
+            card_view:layout_constraintTop_toTopOf="@+id/tv_type"
+            tools:text="@string/distance" />
+
+        <TextView
+            android:id="@+id/tv_description"
+            style="@style/tersierColor"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            card_view:layout_constraintEnd_toEndOf="parent"
+            card_view:layout_constraintStart_toStartOf="@+id/tv_type"
+            card_view:layout_constraintTop_toBottomOf="@+id/tv_type"
+            tools:text="@string/description" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

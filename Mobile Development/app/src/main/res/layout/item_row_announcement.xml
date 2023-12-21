@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/card_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    card_view:cardElevation="0dp"
+    android:layout_marginBottom="16dp"
+    card_view:cardCornerRadius="10dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:padding="16dp"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_icon_notification"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_notification_none"
+            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/primaryColor.bold"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:textSize="20sp"
+            card_view:layout_constraintBottom_toBottomOf="@+id/iv_icon_notification"
+            card_view:layout_constraintStart_toEndOf="@+id/iv_icon_notification"
+            card_view:layout_constraintTop_toTopOf="@+id/iv_icon_notification"
+            tools:text="Judul" />
+
+        <TextView
+            android:id="@+id/tv_description"
+            style="@style/primaryColor"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            card_view:layout_constraintEnd_toEndOf="parent"
+            card_view:layout_constraintStart_toStartOf="@+id/iv_icon_notification"
+            card_view:layout_constraintTop_toBottomOf="@+id/iv_icon_notification"
+            tools:text="@string/description" />
+
+        <TextView
+            android:id="@+id/tv_date"
+            style="@style/tersierColor"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            card_view:layout_constraintEnd_toEndOf="parent"
+            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintTop_toBottomOf="@+id/tv_description"
+            tools:text="11 April 2002" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
