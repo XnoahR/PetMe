@@ -27,3 +27,6 @@
 
 ---
 ## Documentation
+<p>You can access the Documentation here! <br> </p>
+
+[PetMe API Documentation](https://github.com/XnoahR/PetMe/blob/main/Cloud%20Computing/README.md) 
