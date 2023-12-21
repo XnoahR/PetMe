@@ -7,6 +7,7 @@ import fileUpload from "express-fileupload";
 import path from "path";
 import md5 from "md5";
 import fs from "fs";
+import { where } from "sequelize";
 
 const app = Express();
 app.use(fileUpload());
@@ -14,9 +15,17 @@ app.use(Express.json());
 const router = Express.Router();
 
 const getPost = (req, res) => {
-  post.findAll().then((result) => {
-    res.json(result);
+  try{
+  post.findAll(
+    {
+      where: { status: 2 },
+    }
+  ).then((result) => {
+    res.status(200).json(result);
   });
+} catch (err) {
+  res.status(500).json({ message: "Internal Server Error" });
+  }
 };
 
 const createPost = async (req, res) => {
