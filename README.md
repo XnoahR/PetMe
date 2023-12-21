@@ -15,12 +15,14 @@
 
 |Bangkit ID|Name|Learning Path|University|Contact|
 |-----|-----|-----|-----|-----|
-|M010BSY0955|Balthasar Toslur Hasaraini Lase|Machine Learning|University of Indonesia|[Github](https://github.com/lasebalth)|
-|M312BSY1691|Wahyu Heriyanto|Machine Learning|Sebelas Maret University|[Github](https://github.com/WahyuHeriyanto)|
-|C175BSY3576|Ramandhika Ilham Pratama|Cloud Computing|STMIK Sinar Nusantara|[Github](https://github.com/ramandhika)|
-|C312BSY3846|Rio Saputro|Cloud Computing|Sebelas Maret University|[Github](https://github.com/XnoahR)|
-|A123BSY2575|Arbi Julianto|Mobile Development|Politeknik Elektronika Negeri Surabaya|[Github](https://github.com/Arbikoj)|
-|A229BSY2114|Fardan Maula Azizi|Mobile Development|Jenderal Soedirman University|[Github](https://github.com/fardanmaulaazizi)|
+|C175BSY3576|Ramandhika Ilham Pratama|Cloud Computing|STMIK Sinar Nusantara|[Github](https://github.com/ramandhika) [LinkedIn](https://www.linkedin.com/in/ramandhika-ip/)|
+|C312BSY3846|Rio Saputro|Cloud Computing|Sebelas Maret University|[Github](https://github.com/XnoahR) [LinkedIn](https://www.linkedin.com/in/icedmocca/)|
+|M312BSY1675|Aditya Prasetya Nugraha|Machine Learning|Sebelas Maret University|[Github](https://github.com/Adztrz) [LinkedIn](https://www.linkedin.com/in/aditia-nugraha-65071a210/)|
+|M010BSY0955|Balthasar Toslur Hasaraini Lase|Machine Learning|University of Indonesia|[Github](https://github.com/lasebalth) [LinkedIn](https://www.linkedin.com/in/balthasarthlase/)|
+|M312BSY1691|Wahyu Heriyanto|Machine Learning|Sebelas Maret University|[Github](https://github.com/WahyuHeriyanto) [LinkedIn](https://www.linkedin.com/in/wahyu-heriyanto-bb972921a/)|
+|A123BSY2575|Arbi Julianto|Mobile Development|Politeknik Elektronika Negeri Surabaya|[Github](https://github.com/Arbikoj) [LinkedIn](https://www.linkedin.com/in/aarbii/)|
+|A229BSY2114|Fardan Maula Azizi|Mobile Development|Jenderal Soedirman University|[Github](https://github.com/fardanmaulaazizi) [LinkedIn](https://www.linkedin.com/in/fardanmaula/)|
+
 
 
 ---
