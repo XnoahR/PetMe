@@ -131,6 +131,7 @@
     "latitude": 2.11
   }
   ```
+  <p> <br> </p>
   
   ```
   PATCH /post/edit/pict/:id
@@ -146,11 +147,13 @@
   }
   add file to form-data with name 'file'
   ```
+  <p> <br> </p>
   
   ```
   DELETE /post/:id
   ```
   This endpoint is used to delete a post.
+  <p> <br> </p>
 
   ```
   DELETE /post/favourite/:id
