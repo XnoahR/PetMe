@@ -5,7 +5,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -13,7 +12,7 @@ import com.bangkit.petme.R
 import com.bangkit.petme.ui.main.fragment.petscollection.AddPetActivity
 import com.bangkit.petme.ui.main.fragment.profile.ProfileFragment
 import com.bangkit.petme.ui.main.fragment.home.HomeFragment
-import com.bangkit.petme.ui.main.fragment.NotificationFragment
+import com.bangkit.petme.ui.main.fragment.announcement.NotificationFragment
 import com.bangkit.petme.ui.main.fragment.petscollection.PetsFragment
 import com.bangkit.petme.viewmodel.MainViewModel
 import com.bangkit.petme.viewmodel.PetsCollectionViewModel

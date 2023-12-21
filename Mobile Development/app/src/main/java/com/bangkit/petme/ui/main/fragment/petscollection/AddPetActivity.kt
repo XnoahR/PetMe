@@ -30,6 +30,7 @@ import com.bangkit.petme.viewmodel.ViewModelFactory
 import okhttp3.FormBody
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import org.tensorflow.lite.DataType
 import org.tensorflow.lite.support.image.ImageProcessor
@@ -88,8 +89,6 @@ class AddPetActivity : AppCompatActivity() {
         var label = application.assets.open("label.txt").bufferedReader().readLines()
 
         var imageProcessor = ImageProcessor.Builder()
-//            .add(NormalizeOp(0.0f, 255.0f))
-//            .add(TransformToGrayscaleOp())
             .add(ResizeOp(224, 224, ResizeOp.ResizeMethod.BILINEAR))
             .build()
 
@@ -117,8 +116,6 @@ class AddPetActivity : AppCompatActivity() {
         }
 
         id_animal = label[maxIdx]
-        binding.tvTitle.setText(label[maxIdx])
-
 
         model.close()
     }
@@ -179,50 +176,43 @@ class AddPetActivity : AppCompatActivity() {
         currentImageUri?.let { uri ->
             val imageFile = uriToFile(uri, this).reduceFileImage()
             Log.d("Image File", "showImage: ${imageFile.path}")
-            val formBuilder = FormBody.Builder()
-                .add("title", binding.etTitle.text.toString())
-                .add("breed", binding.etBreeds.text.toString())
-                .add("description", binding.etDescription.text.toString())
-                .add("latitude", mainViewModel.getLatitude().toString())
-                .add("longitude", mainViewModel.getLongitude().toString())
-                .add("id_animal", id_animal.toString())
-
-//            showLoading(true)
-            val requestBody = formBuilder.build()
             val requestImageFile = imageFile.asRequestBody("image/jpeg".toMediaType())
-            val multipartBody = MultipartBody.Part.createFormData(
-                "file",
-                imageFile.name,
-                requestImageFile
-            )
 
-            val client = ApiConfig.getApiService()
-                .uploadImage("Bearer ${mainViewModel.getToken()}", multipartBody, requestBody)
-            client.enqueue(object : Callback<AddPostResponse> {
+            val title = binding.etTitle.text.toString()
+            val breed = binding.etBreeds.text.toString()
+            val description = binding.etDescription.text.toString()
+            val idAnimal = id_animal.toString()
+            val longitude = mainViewModel.getLongitude()!!
+            val latitude = mainViewModel.getLatitude()!!
+
+            Log.d("ISI VARIABELNYA", "$title, $breed, $description, $idAnimal, $longitude, $latitude")
+            val response = ApiConfig.getApiService().uploadImage("Bearer ${mainViewModel.getToken()}",
+                    RequestBody.create("multipart/form-data".toMediaType(), "$title"),
+                    RequestBody.create("multipart/form-data".toMediaType(), "$breed"),
+                    RequestBody.create("multipart/form-data".toMediaType(), "$description"),
+                    RequestBody.create("multipart/form-data".toMediaType(), "$idAnimal"),
+                    RequestBody.create("multipart/form-data".toMediaType(), "${mainViewModel.getLongitude()}"),
+                    RequestBody.create("multipart/form-data".toMediaType(), "${mainViewModel.getLatitude()}"),
+                    MultipartBody.Part.createFormData("file", imageFile.name, requestImageFile))
+//
+
+            response.enqueue(object : Callback<AddPostResponse> {
                 override fun onResponse(
                     call: Call<AddPostResponse>,
                     response: Response<AddPostResponse>
                 ) {
-//                        showLoading(false)
+                    showLoading(true)
                     if (response.isSuccessful) {
                         val responseBody = response.body()
                         if (responseBody != null) {
-//                                showToast(responseBody.message)
-                            if (responseBody.message == "Story created successfully") {
-                                startActivity(
-                                    Intent(
-                                        this@AddPetActivity,
-                                        MainActivity::class.java
-                                    )
-                                )
-                            }
-
+                            showLoading(false)
+                            finish()
                         }
                     }
                 }
 
                 override fun onFailure(call: Call<AddPostResponse>, t: Throwable) {
-                    Log.d("gagal", "gagal")
+                    showLoading(false)
                 }
             })
         }
@@ -232,14 +222,6 @@ class AddPetActivity : AppCompatActivity() {
         val filesDir = context.externalCacheDir
         return File.createTempFile(timeStamp, ".jpg", filesDir)
     }
-
-//    fun showLoading(isLoading: Boolean) {
-//        binding.progressIndicator.visibility = if (isLoading) View.VISIBLE else View.GONE
-//    }
-//
-//    private fun showToast(message: String) {
-//        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-//    }
 
     fun File.reduceFileImage(): File {
         val file = this
@@ -276,6 +258,14 @@ class AddPetActivity : AppCompatActivity() {
         return Bitmap.createBitmap(
             source, 0, 0, source.width, source.height, matrix, true
         )
+    }
+
+    fun showLoading(isLoading: Boolean){
+        if(isLoading == true){
+            binding.progressBar.visibility = View.VISIBLE
+        }else{
+            binding.progressBar.visibility = View.INVISIBLE
+        }
     }
 }
 

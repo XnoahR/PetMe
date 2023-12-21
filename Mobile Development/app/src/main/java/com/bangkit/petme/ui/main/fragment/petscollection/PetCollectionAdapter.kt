@@ -57,9 +57,10 @@ class PetCollectionAdapter(private val petCollection: List<PetCollectionResponse
                 Intent(holder.itemView.context, EditPetActivity::class.java).apply {
                     putExtra(EditPetActivity.ID, petCollection[position].id)
                     putExtra(EditPetActivity.NAME, petCollection[position].title)
-                    putExtra(EditPetActivity.TYPE, type)
+                    putExtra(EditPetActivity.TYPE, petCollection[position].breed)
                     putExtra(EditPetActivity.DESCRIPTION, petCollection[position].description)
                     putExtra(EditPetActivity.IMAGE, petCollection[position].postPicture)
+                    putExtra(EditPetActivity.ID_ANIMAL, petCollection[position].idAnimal.toString())
                 }
             )
         }

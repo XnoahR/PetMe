@@ -2,6 +2,8 @@ package com.bangkit.petme.api.Retrofit
 
 import com.bangkit.petme.api.Response.AddFavoriteResponse
 import com.bangkit.petme.api.Response.AddPostResponse
+import com.bangkit.petme.api.Response.AnnouncementResponse
+import com.bangkit.petme.api.Response.DataItem
 import com.bangkit.petme.api.Response.DeleteFavoriteResponse
 import com.bangkit.petme.api.Response.DeletePostResponse
 import com.bangkit.petme.api.Response.DetailPetResponse
@@ -12,6 +14,8 @@ import com.bangkit.petme.api.Response.PetCollectionResponse
 import com.bangkit.petme.api.Response.PetCollectionResponseItem
 import com.bangkit.petme.api.Response.PostPetResponseItem
 import com.bangkit.petme.api.Response.RegisterResponse
+import com.bangkit.petme.api.Response.UpdatePostResponse
+import com.bangkit.petme.api.Response.UpdatePostWithImageResponse
 import com.bangkit.petme.api.Response.UserProfileResponse
 import com.bangkit.petme.api.Response.UserProfileResponseItem
 import com.bangkit.petme.ui.detail.DetailPetActivity
@@ -95,7 +99,38 @@ interface ApiService {
     @POST("post/create")
     fun uploadImage(
         @Header("Authorization") token: String,
-        @Part file: MultipartBody.Part,
+        @Part("title") title: RequestBody,
+        @Part("breed") breed: RequestBody,
         @Part("description") description: RequestBody,
+        @Part("id_animal") idAnimal: RequestBody,
+        @Part("longitude") longitude: RequestBody,
+        @Part("latitude") latitude: RequestBody,
+        @Part file: MultipartBody.Part
         ): Call<AddPostResponse>
+
+    @GET("notification/")
+    fun getAnnouncement(
+        @Header("Authorization") token: String,
+    ): Call<AnnouncementResponse>
+
+    @PATCH("post/edit/{id}")
+    suspend fun updatePostNoImage(
+        @Header("Authorization") token: String,
+        @Path("id") id: Int,
+        @Body update: Map<String, String>
+    ): UpdatePostResponse
+
+    @Multipart
+    @PATCH("post/edit/pict/{id}")
+    fun updateWithImage(
+        @Path("id") id: Int,
+        @Header("Authorization") token: String,
+        @Part("title") title: RequestBody,
+        @Part("breed") breed: RequestBody,
+        @Part("description") description: RequestBody,
+        @Part("id_animal") idAnimal: RequestBody,
+        @Part("longitude") longitude: RequestBody,
+        @Part("latitude") latitude: RequestBody,
+        @Part file: MultipartBody.Part
+    ): Call<UpdatePostWithImageResponse>
 }

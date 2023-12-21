@@ -1,16 +1,24 @@
 package com.bangkit.petme.ui.detail
 
-import androidx.appcompat.app.AppCompatActivity
+import android.app.PendingIntent
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.telephony.SmsManager
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.bangkit.petme.R
 import com.bangkit.petme.databinding.ActivityDetailPetBinding
 import com.bangkit.petme.preferences.Preferences
 import com.bangkit.petme.utils.UtilsRange
-import com.bangkit.petme.viewmodel.MainViewModel
 import com.bangkit.petme.viewmodel.ViewModelFactory
 import com.bumptech.glide.Glide
+
 
 class DetailPetActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailPetBinding
@@ -30,6 +38,7 @@ class DetailPetActivity : AppCompatActivity() {
 
         val id = intent.getIntExtra(ID, 0)
 
+
         detailViewModel.getDetailPostPet(id)
 
         detailViewModel.detailPostPet.observe(this){
@@ -44,6 +53,17 @@ class DetailPetActivity : AppCompatActivity() {
                 .into(binding.ivCover)
             binding.tvDescription.text = it.data.description
             binding.tvRange.text = "${UtilsRange.calculateHaversineDistance(preference.getLatitude().toString().toDouble(), preference.getLongitude().toString().toDouble(), it.data.latitude.toString().toDouble(), it.data.longitude.toString().toDouble()).toInt().toString()} KM"
+            var phone = it.data.user.phone
+            var type = it.data.idAnimal.toString()
+            if(type == "1"){
+                type = "dog"
+            }else{
+                "cat"
+            }
+            var title = it.data.title
+            binding.btnAdopt.setOnClickListener {
+                sendWA("${phone}", "I would like to adopt the $type, that you posted with the title $title")
+            }
         }
 
         detailViewModel.isFavorite.observe(this){
@@ -62,6 +82,22 @@ class DetailPetActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun sendSMS(phoneNumber: String, message: String) {
+        try{
+            SmsManager.getDefault().sendTextMessage(phoneNumber,null,message,null,null)
+            Toast.makeText(this, "SMS Sended", Toast.LENGTH_SHORT).show()
+        }catch (e: Exception){
+
+        }
+    }
+
+    private fun sendWA(phoneNumber: String, message: String) {
+        val formattedPhoneNumber = "+62" + phoneNumber.substring(1)
+        val intent = Intent(Intent.ACTION_VIEW)
+        intent.data = Uri.parse("https://wa.me/$formattedPhoneNumber?text=$message")
+        startActivity(intent)
     }
 
     companion object{

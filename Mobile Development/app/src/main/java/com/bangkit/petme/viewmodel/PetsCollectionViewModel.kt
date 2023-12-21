@@ -80,6 +80,12 @@ class PetsCollectionViewModel(application: Application) : ViewModel() {
             petsCollectionRepository.deletePost(preference.getToken()!!, id)
         }
     }
+
+    fun updatePostNoImage(id: Int, title: String, breed: String, description: String, idAnimal: String, longitude: String, latitude: String){
+        viewModelScope.launch {
+            petsCollectionRepository.updatePostNoImage(preference.getToken()!!, id, title, breed, description, idAnimal, longitude, latitude)
+        }
+    }
 }
 
 

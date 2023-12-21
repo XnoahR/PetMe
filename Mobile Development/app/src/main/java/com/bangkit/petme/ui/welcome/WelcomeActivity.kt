@@ -1,6 +1,7 @@
 package com.bangkit.petme.ui.welcome
 
 import android.Manifest
+import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
@@ -30,7 +31,16 @@ class WelcomeActivity : AppCompatActivity() {
         // Memeriksa ketersediaan jaringan
         if (!networkUtils.isNetworkAvailable(this)) {
             // Meminta pengguna menyalakan data/Wi-Fi
-            networkUtils.requestNetworkActivation(this)
+            AlertDialog.Builder(this@WelcomeActivity).apply {
+                setTitle("PetMe need internet")
+                setMessage("Please setup your internet")
+                setPositiveButton("Next") { _, _ ->
+                    // Meminta pengguna menyalakan data/Wi-Fi
+                    networkUtils.requestNetworkActivation(this@WelcomeActivity)
+                }
+                create()
+                show()
+            }
         }
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
         binding.btnGetStarted.setOnClickListener {
