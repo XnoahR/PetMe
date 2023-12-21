@@ -13,13 +13,14 @@
 
 <h2> Project Team Members : </h2>
 
-- Rio Saputro [Github](https://github.com/XnoahR)
-- Ramandhika Ilham Pratama [Github](https://github.com/ramandhika)
-- Aditia Prasetya Nugraha [Github](https://github.com/Adztrz)
-- Balthasar Toslur Hasaraini Lase [Github](https://github.com/lasebalth)
-- Wahyu Heriyanto [Github](https://github.com/WahyuHeriyanto)
-- Fardan Maula Azizi[Github](https://github.com/fardanmaulaazizi)
-- Arbi Julianto [Github](https://github.com/Arbikoj)
+|Bangkit ID|Name|Learning Path|University|Contact|
+|-----|-----|-----|-----|-----|
+|M010BSY0955|Balthasar Toslur Hasaraini Lase|Machine Learning|University of Indonesia|[Github](https://github.com/lasebalth)|
+|M312BSY1691|Wahyu Heriyanto|Machine Learning|Sebelas Maret University|[Github](https://github.com/WahyuHeriyanto)|
+|C175BSY3576|Ramandhika Ilham Pratama|Cloud Computing|STMIK Sinar Nusantara|[Github](https://github.com/ramandhika)|
+|C312BSY3846|Rio Saputro|Cloud Computing|Sebelas Maret University|[Github](https://github.com/XnoahR)|
+|A123BSY2575|Arbi Julianto|Mobile Development|Politeknik Elektronika Negeri Surabaya|[Github](https://github.com/Arbikoj)|
+|A229BSY2114|Fardan Maula Azizi|Mobile Development|Jenderal Soedirman University|[Github](https://github.com/fardanmaulaazizi)|
 
 
 ---
