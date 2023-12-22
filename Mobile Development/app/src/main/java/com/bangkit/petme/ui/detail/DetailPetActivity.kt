@@ -44,9 +44,9 @@ class DetailPetActivity : AppCompatActivity() {
         detailViewModel.detailPostPet.observe(this){
             binding.tvTitle.text = it.data.title
             if(it.data.idAnimal == 1){
-                binding.tvType.text = "Kucing"
+                binding.tvType.text = "Cat"
             }else{
-                binding.tvType.text = "Anjing"
+                binding.tvType.text = "Dog"
             }
             Glide.with(this)
                 .load(it.data.postPicture) // URL Gambar
@@ -55,10 +55,10 @@ class DetailPetActivity : AppCompatActivity() {
             binding.tvRange.text = "${UtilsRange.calculateHaversineDistance(preference.getLatitude().toString().toDouble(), preference.getLongitude().toString().toDouble(), it.data.latitude.toString().toDouble(), it.data.longitude.toString().toDouble()).toInt().toString()} KM"
             var phone = it.data.user.phone
             var type = it.data.idAnimal.toString()
-            if(type == "1"){
-                type = "dog"
+            if(type == "2"){
+                type = "Dog"
             }else{
-                "cat"
+                type = "Cat"
             }
             var title = it.data.title
             binding.btnAdopt.setOnClickListener {

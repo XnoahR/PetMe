@@ -66,9 +66,7 @@ class EditProfileActivity : AppCompatActivity() {
                                 "Update Success",
                                 Toast.LENGTH_SHORT
                             ).show()
-                            startActivity(Intent(this@EditProfileActivity, MainActivity::class.java).apply {
-                                putExtra("page", "Profile")
-                            })
+                           finish()
                         }
                     } catch (e: HttpException) {
                         Toast.makeText(

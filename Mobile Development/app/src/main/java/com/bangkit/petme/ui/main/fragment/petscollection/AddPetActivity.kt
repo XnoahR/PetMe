@@ -87,20 +87,14 @@ class AddPetActivity : AppCompatActivity() {
 
     private fun predict() {
         var label = application.assets.open("label.txt").bufferedReader().readLines()
-
         var imageProcessor = ImageProcessor.Builder()
             .add(ResizeOp(224, 224, ResizeOp.ResizeMethod.BILINEAR))
             .build()
-
         val bitmap = MediaStore.Images.Media.getBitmap(this.contentResolver, currentImageUri)
-
         var tensorImage = TensorImage(DataType.FLOAT32)
         tensorImage.load(bitmap)
-
         tensorImage = imageProcessor.process(tensorImage)
-
         val model = CatDog.newInstance(this)
-
         val inputFeature0 =
             TensorBuffer.createFixedSize(intArrayOf(1, 224, 224, 3), DataType.FLOAT32)
         inputFeature0.loadBuffer(tensorImage.buffer)
@@ -116,7 +110,6 @@ class AddPetActivity : AppCompatActivity() {
         }
 
         id_animal = label[maxIdx]
-
         model.close()
     }
 

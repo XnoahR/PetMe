@@ -42,9 +42,9 @@ class PostPetAdapter(private val postPet: List<PostPetResponseItem>) : RecyclerV
 
         holder.tvName.text = postPet[position].title
         if(postPet[position].idAnimal == 1){
-            holder.tvPetType.text = "Kucing"
+            holder.tvPetType.text = "Cat"
         }else{
-            holder.tvPetType.text = "Anjing"
+            holder.tvPetType.text = "Dog"
         }
         Glide.with(holder.itemView.context)
             .load(postPet[position].postPicture) // URL Gambar
