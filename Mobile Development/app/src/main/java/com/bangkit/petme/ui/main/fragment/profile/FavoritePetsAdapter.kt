@@ -41,9 +41,9 @@ class FavoritePetsAdapter (private val petFavorite: List<FavoritePetsResponseIte
 
         holder.tvName.text = petFavorite[position].post?.title
         if(petFavorite[position].post?.idAnimal == 1){
-            holder.tvPetType.text = "Dog"
-        }else{
             holder.tvPetType.text = "Cat"
+        }else{
+            holder.tvPetType.text = "Dog"
         }
         Glide.with(holder.itemView.context)
             .load(petFavorite[position].post?.postPicture) // URL Gambar

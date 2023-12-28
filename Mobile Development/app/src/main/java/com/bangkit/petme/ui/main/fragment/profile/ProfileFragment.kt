@@ -20,6 +20,7 @@ import com.bangkit.petme.viewmodel.ViewModelFactory
 class ProfileFragment : Fragment() {
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
+    private lateinit var profileViewModel: ProfileViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -35,7 +36,7 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val profileViewModel = ViewModelProvider(requireActivity(), ViewModelFactory.getInstance(requireActivity().application)).get(
+        profileViewModel = ViewModelProvider(requireActivity(), ViewModelFactory.getInstance(requireActivity().application)).get(
             ProfileViewModel::class.java)
 
         binding.btnLogout.setOnClickListener {
@@ -97,5 +98,10 @@ class ProfileFragment : Fragment() {
 
     private fun showRecyclerView(listPetFavorite: List<FavoritePetsResponseItem>){
         binding.rvFavoritePets.adapter = FavoritePetsAdapter(listPetFavorite)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        profileViewModel.getFavoritePet()
     }
 }

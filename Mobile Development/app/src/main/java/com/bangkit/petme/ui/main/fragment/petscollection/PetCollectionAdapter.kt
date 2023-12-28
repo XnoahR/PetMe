@@ -42,9 +42,9 @@ class PetCollectionAdapter(private val petCollection: List<PetCollectionResponse
 
         holder.tvName.text = petCollection[position].title
         if(petCollection[position].idAnimal == 1){
-            holder.tvPetType.text = "Dog"
-        }else{
             holder.tvPetType.text = "Cat"
+        }else{
+            holder.tvPetType.text = "Dog"
         }
         Glide.with(holder.itemView.context)
             .load(petCollection[position].postPicture) // URL Gambar

@@ -76,4 +76,9 @@ class PetsFragment : Fragment() {
         petCollectionViewModel.resetList()
         super.onDestroy()
     }
+
+    override fun onResume() {
+        super.onResume()
+        petCollectionViewModel.getPetCollection()
+    }
 }

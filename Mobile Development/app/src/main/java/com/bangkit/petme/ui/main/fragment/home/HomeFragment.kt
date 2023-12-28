@@ -144,4 +144,9 @@ class HomeFragment : Fragment() {
         mainViewModel.resetList()
         super.onDestroy()
     }
+
+    override fun onResume() {
+        super.onResume()
+        mainViewModel.getPostPet()
+    }
 }
