@@ -77,6 +77,8 @@ class AddPetActivity : AppCompatActivity() {
 
         binding.btnAdd.setOnClickListener {
             uploadImage()
+            Toast.makeText(this, "Posting successfully, waiting for the post to be approved by the admin", Toast.LENGTH_LONG).show()
+            finish()
         }
 
         mainViewModel =
