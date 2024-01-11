@@ -32,7 +32,7 @@
 [PetMe API Documentation](https://github.com/XnoahR/PetMe/blob/main/Cloud%20Computing/README.md) 
 
 ---
-# PetMe - Rest API
+# PetMe - Architecture and Rest API
 
 ## Cloud Architecture
 
