@@ -1,3 +1,5 @@
+
+
 # <p align="center">PetMe! </p>
 <p align="center" >
     <img width="500" src="https://raw.githubusercontent.com/XnoahR/PetMe/main/asset/PetMe.png" alt="Pet Me Logo">
@@ -110,7 +112,7 @@ Start the server using the following command:
 npm start
 ```
 
-Open http://localhost:3000/ in a web browser and ensure the expected message is displayed.
+Open http://localhost:3000/ in a web browser and ensure the terminal displays `listening at http://localhost:3000`.
 
 Once testing is done, stop the server using CTRL+C then press Y.
 
@@ -254,4 +256,3 @@ To deploy this project on Google Cloud Run using Cloud Build, follow these steps
 4. Follow the prompts to select the project, region, and service name.
 
 5. Once the deployment is complete, you will receive a URL where your application is accessible.
-
